@@ -15,3 +15,11 @@ Things that would be great for anyone to work on if they have time:
 * General look and feel. Theres' a lot of native Ionic functionality that could be added pretty easily and would make a big difference.
 
 Hopefully you can help with the project!!!
+
+To make the app work you need to make a file called 'secret.js' and put it in the www folder. below are the contents of that file.
+
+
+```
+angular.module('App')
+.constant('FURL', 'https://addresstotheapphere.firebaseio.com/')
+```

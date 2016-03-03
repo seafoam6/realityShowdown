@@ -1,0 +1,81 @@
+<ion-view view-title="Queen Admin" hide-back-button="true">
+  <ion-content class="padding">
+    <div class="queen-list padding-bottom" >
+      <button ng-repeat="queen in queens" 
+      class="button" 
+      ng-click="loadQ(queen); ">
+      {{queen.name}}
+      </button>
+    </div><!--queen-list-->
+
+    <div class="actions padding-bottom">
+      <button class="button button-positive" ng-click="createNewQueen(); ">
+        <i class="icon ion-plus"></i>
+      </button>
+    </div>
+
+    <div class="queen-edit" ng-if="showForm" ng-model="queen">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Name</span>
+          <input ng-model="queen.name" type="text" placeholder="Name">
+        </label>
+        <div class="item item-icon-left" href="#">
+          Is Active?
+          <span class="item-note">
+            {{queen.isActive}}
+          </span>
+        </div>
+<!--         <li class="item item-toggle">
+           Queen is <span ng-if="queen.isActive">active</span><span ng-if="!queen.isActive">lost</span>
+           <label class="toggle toggle-assertive">
+             <input type="checkbox" ng-model="queen.isActive">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+        </li> -->
+        <label class="item item-input">
+          <span class="input-label">Birth Name</span>
+          <input ng-model="queen.birthName" type="text" placeholder="Birth Name">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Age</span>
+          <input ng-model="queen.age" type="number" placeholder="Age">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Hometown</span>
+          <input ng-model="queen.hometown" type="text" placeholder="Hometown">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Twitter</span>
+          <input ng-model="queen.twitter" type="text" placeholder="Twitter">
+        </label>
+      </div>
+        <button ng-click="deleteQueen(queen)"
+                ng-if="action == 'edit'" 
+                class="button button-assertive">
+           <i class="icon ion-trash-b"></i>
+        </button>
+        <button ng-click="saveQueen(queen)" 
+                ng-if="action == 'edit'" 
+                class="button button-balanced">
+          <i class="icon ion-edit"></i>
+        </button>
+
+        <button ng-click="cancelNewQueen()"
+                ng-if="action == 'new'"
+            class="button button-assertive">
+           <i class="icon ion-close"></i>
+        </button>
+        <button ng-click="saveNewQueen(queen)" 
+                ng-if="action == 'new'"
+                class="button button-balanced">
+          <i class="icon ion-checkmark"></i>
+        </button>
+      
+    </div><!--queen-edit-->
+
+
+  </ion-content>      
+</ion-view>

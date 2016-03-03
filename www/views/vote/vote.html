@@ -1,0 +1,35 @@
+<ion-view view-title="Vote! Week # {{week.weekNumber}}" >
+  <ion-content class="padding" >
+<div class="instruction" ng-if="openVoting == 'open' && prevVote == 'noVote'">
+  <h4>Pick first place first, second place second, and so on.</h4>
+  <img class="img-center" src="img/fuckup.gif">
+
+</div>
+<section class="voting-active">
+  <div class="open-queens">
+    <button ng-if="openVoting == 'open' && prevVote == 'noVote'" class="button queen-button" ng-repeat="queen in contestants" ng-click="pickQueen(queen, $index)"><img class="queen-icon" ng-src="img/thumbs/{{queen.name | getImg}}"> {{queen.name}} </button>
+    </div><!--open-queens-->
+  <div class="picked-queens">
+    <div class="queen" ng-repeat="queen in pickedQueens">
+      <div class="position">{{$index+1}}</div>
+      <div class="img"><img class="queen-icon" ng-src="img/thumbs/{{queen.name | getImg}}"></div>
+      <div class="name">{{queen.name}}</div>
+    </div><!--queen-->
+  </div><!--picked-queens-->
+      
+  <div class="actions" ng-if="prevVote == 'noVote'">
+   <button ng-click='castVote()' class="button button-positive">vote</button>
+   <button ng-click='clear()' class="button">clear selections</button>
+  </div>
+  <div class="actions" ng-if="prevVote == 'vote' && openVoting == 'open'">
+   <button ng-click='deletePrevVote()' class="button">Redo your vote</button>
+  </div>
+  </div>
+  </div>
+  </section>
+  <section class="voting-active" ng-if="openVoting == 'notOpen'">
+  <p>There's no active voting! Check back soon!</p>
+  <img src="img/sorry.gif">
+  </section>
+  </ion-content>
+</ion-view>

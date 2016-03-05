@@ -1,57 +1,52 @@
 'Use Strict';
-angular.module('App').controller('loginController', function ($scope, $state,$cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseObject, Auth, FURL, Utils, $log, $firebaseAuth) {
+angular.module('App').controller('loginController', function ($scope, $state,$cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseObject, $firebaseArray, FURL, Utils, $log, $firebaseAuth) {
   var ref = new Firebase(FURL);
   var userkey = "";
   var auth = $firebaseAuth(ref);
+  var PlayerArray = $firebaseArray(new Firebase(FURL + 'players'))
+  var player = {}
 
   $scope.socLogin = function(socType) {
     
-   auth.$authWithOAuthPopup(socType)
+  auth.$authWithOAuthRedirect(socType)
     .then(function(authData){
-      $log.log(authData)
-    })
-    
+    }).catch(function(error) {
+      if (error.code === 'TRANSPORT_UNAVAILABLE') {
+        auth.$authWithOAuthPopup(authMethod).then(function(authData) {
+        });
+      } else {
+        console.log(error);
+      }
+    }); 
   };
 
-  $scope.signIn = function (user) {
-    console.log("Signing in");
-    if(angular.isDefined(user)){
-    Utils.show();
-    Auth.login(user)
-      .then(function(authData) {
-      console.log("user ID:" + JSON.stringify(authData));
 
-      ref.child('profile').orderByChild("id").equalTo(authData.uid).on("child_added", function(snapshot) {
-        console.log(snapshot.key());
-        userkey = snapshot.key();
-        var obj = $firebaseObject(ref.child('profile').child(userkey));
 
-        obj.$loaded()
-          .then(function(data) {
-            //console.log(data === obj); // true
-            //console.log(obj.email);
-            $log.log('user key', userkey)
-            $localStorage.email = obj.email;
-            $localStorage.userkey = userkey;
-            if (userkey == '-KAe6EfAhM-htPlOtPXM'){
-              $localStorage.isAdmin = true;
-              $log.log('admin steve')
-            }
-              Utils.hide();
-              $state.go('home');
-              console.log("Starter page","Home");
-
-          })
-          .catch(function(error) {
-            console.error("Error:", error);
-          });
-      });
-
-      }, function(err) {
-        Utils.hide();
-         Utils.errMessage(err);
-      });
+  auth.$onAuth(function(authData) {
+    if (authData === null) {
+      console.log('Not logged in yet');
+    } else {
+      console.log('Logged in as', authData.uid);
     }
-  };
+    $log.log(authData)
+
+    //get data for 
+    player.provider = authData.provider
+    player.avatar = authData.twitter.profileImageURL
+    player.name = authData.twitter.displayName
+    player.twitterName = authData.twitter.username
+    player.tempTime = Date()
+
+
+    var uid = authData.uid
+    PlayerArray.$add(player).then(function(ref2){
+      $log.log('ref', ref2)
+      var id = ref2.key();
+      $log.log('index for player array', PlayerArray.$indexFor(id))
+    })
+
+  });
+
+  
 
 });

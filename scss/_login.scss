@@ -1,0 +1,11 @@
+.social-login-wrapper{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  button{
+    //flex:0 1 content;
+    //flex-basis:content;
+    width:160px;
+    margin-bottom:20px;
+  }
+}

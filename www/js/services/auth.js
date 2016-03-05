@@ -30,14 +30,6 @@ angular.module('App').factory('Auth', function(FURL, $firebaseAuth, $firebaseArr
       );
     },
 
-    socLogin: function(socType){
-      return auth.authWithOAuthPopup("twitter", function(error, authData) { 
-        $log.log(authData)
-      }, {
-        remember: "sessionOnly"
-      });
-    },
-
     register: function(user) {
       return auth.$createUser({email: user.email, password: user.password})
         .then(function() {

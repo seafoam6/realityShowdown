@@ -9731,6 +9731,14 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+.social-login-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .social-login-wrapper button {
+    width: 160px;
+    margin-bottom: 20px; }
+
 .button {
   margin-right: 5px;
   margin-bottom: 5px; }

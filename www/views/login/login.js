@@ -1,8 +1,17 @@
 'Use Strict';
-angular.module('App').controller('loginController', function ($scope, $state,$cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseObject, Auth, FURL, Utils, $log) {
+angular.module('App').controller('loginController', function ($scope, $state,$cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseObject, Auth, FURL, Utils, $log, $firebaseAuth) {
   var ref = new Firebase(FURL);
   var userkey = "";
+  var auth = $firebaseAuth(ref);
 
+  $scope.socLogin = function(socType) {
+    
+   auth.$authWithOAuthPopup(socType)
+    .then(function(authData){
+      $log.log(authData)
+    })
+    
+  };
 
   $scope.signIn = function (user) {
     console.log("Signing in");

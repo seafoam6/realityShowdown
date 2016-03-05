@@ -54,7 +54,12 @@ $scope.score = function(week){
 }
 
   function nextWeek(){
-    return $scope.weeks.length + 1
+    if ($scope.weeks.length){
+      return $scope.weeks.length + 1
+    } else{
+      return 1
+    }
+    
   }
 
   function clearForm(){

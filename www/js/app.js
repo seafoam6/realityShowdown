@@ -80,6 +80,7 @@ $stateProvider
     ;
 $urlRouterProvider.otherwise("/login");
 })
+.constant('FURL', 'https://dragrace.firebaseio.com/')
 // Changue this for your Firebase App URL.
 .constant('lodash', window._)
 .run(function($ionicPlatform) {

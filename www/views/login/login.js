@@ -1,10 +1,12 @@
 'Use Strict';
-angular.module('App').controller('loginController', function ($scope, $state,$cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseObject, $firebaseArray, FURL, Utils, $log, $firebaseAuth) {
+angular.module('App').controller('loginController', function ($scope, $state,$cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseObject, $firebaseArray, FURL, Player, Utils, $log, $firebaseAuth) {
   var ref = new Firebase(FURL);
   var userkey = "";
   var auth = $firebaseAuth(ref);
-  var PlayerArray = $firebaseArray(new Firebase(FURL + 'players'))
+  var playersArray = $firebaseArray(new Firebase(FURL + 'players'))
+  var playersObject = $firebaseObject(new Firebase(FURL + 'players'))
   var player = {}
+  var specific = $firebaseObject(new Firebase(FURL + 'players/-KC7sXP0cPdDrJUkeBF4'))
 
   $scope.socLogin = function(socType) {
     
@@ -20,15 +22,15 @@ angular.module('App').controller('loginController', function ($scope, $state,$co
     }); 
   };
 
-
+Player.test();
 
   auth.$onAuth(function(authData) {
     if (authData === null) {
       console.log('Not logged in yet');
     } else {
-      console.log('Logged in as', authData.uid);
+      //console.log('Logged in as', authData.uid);
     }
-    $log.log(authData)
+    //$log.log(authData)
 
     //get data for 
     player.provider = authData.provider
@@ -36,14 +38,28 @@ angular.module('App').controller('loginController', function ($scope, $state,$co
     player.name = authData.twitter.displayName
     player.twitterName = authData.twitter.username
     player.tempTime = Date()
+    player.id = authData.uid
 
+    // if player does not exist
+      playersArray.$loaded().then(function(data){
+        //$log.log('players array data', data)
+        
+        
+        //find match for username 
+        var match = _.find(data, function(o) { return o.id == player.id })
 
-    var uid = authData.uid
-    PlayerArray.$add(player).then(function(ref2){
-      $log.log('ref', ref2)
-      var id = ref2.key();
-      $log.log('index for player array', PlayerArray.$indexFor(id))
-    })
+        if (!match){
+          playersArray.$add(player)
+          $localStorage.user = player
+        } else {
+          $log.log('player exists')
+          $localStorage.user = player
+        }
+
+        $state.go('home')
+
+      })
+
 
   });
 

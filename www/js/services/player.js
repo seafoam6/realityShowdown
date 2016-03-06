@@ -1,29 +1,23 @@
 'use strict';
-angular.module('App').factory('Player', function(FURL, $firebaseArray,$log, $firebaseObject, $firebaseAuth) {
-
+angular.module('App').service('Player', function(FURL, $firebaseArray,$log, $firebaseObject, $firebaseAuth) {
+  var service = this
   var ref = new Firebase(FURL);
-  var authData = $firebaseAuth(ref).$getAuth();
+  var PlayerArray = $firebaseArray(new Firebase(FURL + 'players'))
+  //var authData = $firebaseAuth(ref).$getAuth();
 
 
-  var Player = {
 
-    email:function(){
-      if (authData) {
-        return authData.password.email;
-      } else {
-        console.log("Logged out");
-      }
-    },
-    uid:function(){
-      if (authData) {
-        return authData.uid;
-      } else {
-        console.log("Logged out");
-      }
-    }
+  service.test = function(){
+    $log.log('test')
+  }
 
-   }
+  service.getSinglePlayerRef = function(id){
+    return $firebaseArray(new Firebase(FURL + 'players/' + id))
+  }
 
-  return Player;
+  service.doesPlayerExist = function(){}
+
+
+
 
 });

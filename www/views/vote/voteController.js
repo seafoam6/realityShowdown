@@ -2,7 +2,7 @@
 angular.module('App').controller('voteController', function ($scope, $state, $cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseObject, $firebaseArray, Auth, FURL, Utils, Player, $log, $filter,  Show, Vote) {
 
   $scope.pickedQueens = [];
-  $scope.playerId = Player.uid();
+  $scope.playerId = Player.getPlayerId();
   //this is for show info
   var show = new Show;
   var allQueens, allWeeks, activeQueens, activeWeeks, selectableQueens, vote = {season:'',showName:'',playerId:'',weekNumber:'',guesses:''}, currentWeek, pristineContestants, voteDetails = {};

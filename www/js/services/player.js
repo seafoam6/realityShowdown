@@ -1,5 +1,5 @@
 'use strict';
-angular.module('App').service('Player', function(FURL, $firebaseArray,$log, $firebaseObject, $firebaseAuth) {
+angular.module('App').service('Player', function(FURL, $firebaseArray,$log, $localStorage, $firebaseObject, $firebaseAuth) {
   var service = this
   var ref = new Firebase(FURL);
   var PlayerArray = $firebaseArray(new Firebase(FURL + 'players'))
@@ -15,7 +15,9 @@ angular.module('App').service('Player', function(FURL, $firebaseArray,$log, $fir
     return $firebaseArray(new Firebase(FURL + 'players/' + id))
   }
 
-  service.doesPlayerExist = function(){}
+  service.getPlayerId = function(){
+    return $localStorage.user.id
+  }
 
 
 

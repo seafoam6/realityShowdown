@@ -8,28 +8,36 @@ angular.module('App').controller('loginController', function ($scope, $state,$co
   var player = {}
   var specific = $firebaseObject(new Firebase(FURL + 'players/-KC7sXP0cPdDrJUkeBF4'))
 
+
+
   $scope.socLogin = function(socType) {
     
-  auth.$authWithOAuthRedirect(socType)
-    .then(function(authData){
-    }).catch(function(error) {
-      if (error.code === 'TRANSPORT_UNAVAILABLE') {
-        auth.$authWithOAuthPopup(authMethod).then(function(authData) {
-        });
-      } else {
-        console.log(error);
-      }
+    auth.$authWithOAuthRedirect(socType)
+      .then(function(authData){
+        $localStorage.user = authData
+      }).catch(function(error) {
+        if (error.code === 'TRANSPORT_UNAVAILABLE') {
+          auth.$authWithOAuthPopup(authMethod).then(function(authData) {
+          });
+        } else {
+          console.log(error);
+        }
     }); 
   };
 
-Player.test();
+ if ($localStorage.user){
+    $state.go('home')
+  } else {
+    waitforAuth()
+  }
 
+function waitforAuth(){
   auth.$onAuth(function(authData) {
     if (authData === null) {
       console.log('Not logged in yet');
     } else {
-      //console.log('Logged in as', authData.uid);
-    }
+      console.log('Logged in as', authData.uid);
+    
     //$log.log(authData)
 
     //get data for 
@@ -60,9 +68,9 @@ Player.test();
 
       })
 
-
+    }
   });
-
+}
   
 
 });

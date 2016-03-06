@@ -9750,10 +9750,74 @@ a.button {
   border-radius: 3px;
   display: flex;
   flex-direction: row;
-  background-image: linear-gradient(#111, #333);
   align-items: center;
   margin-bottom: 5px;
   padding: 0; }
+  .queen:nth-child(0) {
+    background-color: red;
+    border: 1px dashed red; }
+    .queen:nth-child(0) .position {
+      background-color: red; }
+  .queen:nth-child(1) {
+    background-color: #ff8000;
+    border: 1px dashed #ff8000; }
+    .queen:nth-child(1) .position {
+      background-color: #ff8000; }
+  .queen:nth-child(2) {
+    background-color: yellow;
+    border: 1px dashed yellow; }
+    .queen:nth-child(2) .position {
+      background-color: yellow; }
+  .queen:nth-child(3) {
+    background-color: #80ff00;
+    border: 1px dashed #80ff00; }
+    .queen:nth-child(3) .position {
+      background-color: #80ff00; }
+  .queen:nth-child(4) {
+    background-color: lime;
+    border: 1px dashed lime; }
+    .queen:nth-child(4) .position {
+      background-color: lime; }
+  .queen:nth-child(5) {
+    background-color: #00ff80;
+    border: 1px dashed #00ff80; }
+    .queen:nth-child(5) .position {
+      background-color: #00ff80; }
+  .queen:nth-child(6) {
+    background-color: cyan;
+    border: 1px dashed cyan; }
+    .queen:nth-child(6) .position {
+      background-color: cyan; }
+  .queen:nth-child(7) {
+    background-color: #0080ff;
+    border: 1px dashed #0080ff; }
+    .queen:nth-child(7) .position {
+      background-color: #0080ff; }
+  .queen:nth-child(8) {
+    background-color: blue;
+    border: 1px dashed blue; }
+    .queen:nth-child(8) .position {
+      background-color: blue; }
+  .queen:nth-child(9) {
+    background-color: #8000ff;
+    border: 1px dashed #8000ff; }
+    .queen:nth-child(9) .position {
+      background-color: #8000ff; }
+  .queen:nth-child(10) {
+    background-color: magenta;
+    border: 1px dashed magenta; }
+    .queen:nth-child(10) .position {
+      background-color: magenta; }
+  .queen:nth-child(11) {
+    background-color: #ff0080;
+    border: 1px dashed #ff0080; }
+    .queen:nth-child(11) .position {
+      background-color: #ff0080; }
+  .queen:nth-child(12) {
+    background-color: red;
+    border: 1px dashed red; }
+    .queen:nth-child(12) .position {
+      background-color: red; }
   .queen .position {
     flex: 0  1 auto;
     border-radius: 3px;
@@ -9766,10 +9830,15 @@ a.button {
     margin: 0; }
   .queen .name {
     flex: 0  1 auto;
-    color: #fff;
+    color: #111;
     padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
     margin: 0;
-    line-height: 1; }
+    line-height: 1;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: inline-block; }
   .queen .img {
     flex: 0  1 auto;
     margin: 0 0 -5px; }

@@ -1,4 +1,9 @@
 'Use Strict';
+
+var footer = {
+  templateUrl:'views/footer/footer.html',
+  controller:'footerCtrl'
+}      
 angular.module('App', ['ionic','ngStorage', 'ngCordova','firebase','ngMessages'])
 .config(function($stateProvider, $urlRouterProvider) {
 $stateProvider
@@ -7,25 +12,23 @@ $stateProvider
       templateUrl: 'views/login/login.html',
       controller:'loginController'
     })
-    .state('forgot', {
-      url: '/forgot',
-      templateUrl: 'views/forgot/forgot.html',
-      controller:'forgotController'
-    })
-    .state('register', {
-      url: '/register',
-      templateUrl: 'views/register/register.html',
-      controller:'registerController'
-    })
+    // .state('forgot', {
+    //   url: '/forgot',
+    //   templateUrl: 'views/forgot/forgot.html',
+    //   controller:'forgotController'
+    // })
+    // .state('register', {
+    //   url: '/register',
+    //   templateUrl: 'views/register/register.html',
+    //   controller:'registerController'
+    // })
     .state('admin', {
       url: '/admin',
       views:{
         "":{
           templateUrl: 'views/admin/admin.html'
         },
-        "footer":{
-          templateUrl:'views/footer.html'
-        }        
+        "footer":footer  
       }
     })
     .state('queenAdmin', {
@@ -35,9 +38,7 @@ $stateProvider
           templateUrl: 'views/admin/queenAdmin.html',
           controller:'queenController'
         },
-        "footer":{
-          templateUrl:'views/footer.html'
-        }        
+        "footer":footer     
       }
     })
     .state('weekAdmin', {
@@ -47,9 +48,7 @@ $stateProvider
           templateUrl: 'views/admin/weekAdmin.html',
           controller:'weekController'
         },
-        "footer":{
-          templateUrl:'views/footer.html'
-        }        
+        "footer":footer    
       }
     })
     .state('vote', {
@@ -59,9 +58,17 @@ $stateProvider
           templateUrl: 'views/vote/vote.html',
           controller:'voteController'
         },
-        "footer":{
-          templateUrl:'views/footer.html'
-        }        
+        "footer":footer     
+      }
+    })
+    .state('pointsAdmin', {
+      url: '/pointsAdmin',
+      views:{
+        "":{
+          templateUrl: 'views/admin/pointsAdmin.html',
+          controller:'pointsController'
+        },
+        "footer":footer     
       }
     })
     .state('home', {
@@ -71,9 +78,7 @@ $stateProvider
           templateUrl: 'views/home/home.html',
           controller:'homeController'
         },
-        "footer":{
-          templateUrl:'views/footer.html'
-        } 
+        "footer":footer
       }
       
     })

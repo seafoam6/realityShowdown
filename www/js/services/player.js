@@ -19,6 +19,32 @@ angular.module('App').service('Player', function(FURL, $firebaseArray,$log, $loc
     return $localStorage.user.id
   }
 
+  service.getPlayer = function(){
+    return $localStorage.user
+  }
+
+  service.verifyPlayer = function(){
+    // get user id
+     if ($localStorage.user.id){
+      $log.log('returning')
+      return $localStorage.user.id
+     } else {
+      return false;
+     }
+
+
+     // see if user id matches user id in database
+  } 
+
+
+  service.isAdmin = function(){
+    if($localStorage.user.id == 'twitter:17048681'){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 
 
 

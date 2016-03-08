@@ -1,5 +1,5 @@
 'Use Strict';
-angular.module('App').controller('loginController', function ($scope, $state,$cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseObject, $firebaseArray, FURL, Player, Utils, $log, $firebaseAuth) {
+angular.module('App').controller('loginController', function ($scope, $state,$cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseObject, $firebaseArray, FURL, Player, Utils, $log, $firebaseAuth, $timeout, $interval) {
   var ref = new Firebase(FURL);
   var userkey = "";
   var auth = $firebaseAuth(ref);
@@ -10,32 +10,23 @@ angular.module('App').controller('loginController', function ($scope, $state,$co
 
 
 
-  $scope.socLogin = function(socType) {
-    
-    auth.$authWithOAuthRedirect(socType)
+  $scope.socLogin = function(socType) {  
+    auth.$authWithOAuthPopup(socType)
       .then(function(authData){
         $localStorage.user = authData
       }).catch(function(error) {
-        if (error.code === 'TRANSPORT_UNAVAILABLE') {
-          auth.$authWithOAuthPopup(authMethod).then(function(authData) {
-          });
-        } else {
-          console.log(error);
-        }
+          $log.error(error);   
     }); 
   };
 
- if ($localStorage.user){
-    $state.go('home')
-  } else {
-    waitforAuth()
-  }
+waitforAuth()
 
 function waitforAuth(){
   auth.$onAuth(function(authData) {
     if (authData === null) {
       console.log('Not logged in yet');
     } else {
+      //$interval.cancel(stopInterval)
       console.log('Logged in as', authData.uid);
     
     //$log.log(authData)

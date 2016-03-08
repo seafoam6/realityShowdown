@@ -1,0 +1,23 @@
+.home-page{
+  .your-score{
+    border:6px solid black;
+    width:200px;
+    border-radius:50%;
+    height:200px;
+    padding:50px;
+    font-size:20px;
+    text-align: center;
+    margin:0 auto 20px;
+    .score{
+      margin-top:20px;
+    }
+  }
+  .reaction{
+    margin:0 auto;
+    display:table;
+    border-radius:4px;
+  }
+  img{
+    max-width:100%;
+  }
+}

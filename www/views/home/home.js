@@ -1,9 +1,9 @@
 'Use Strict';
 angular.module('App').controller('homeController', function ($scope, $state,$cordovaOauth, $localStorage, $location,$http,$ionicPopup, $firebaseObject, Auth, FURL, Utils, $firebaseAuth, Player, $log) {
 
-  $scope.user = $localStorage.user
+  $scope.user = Player.getPlayer()
 
-
+  
 
   var ref = new Firebase(FURL);
   $scope.authObj = $firebaseAuth(ref);

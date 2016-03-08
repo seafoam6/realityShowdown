@@ -1,0 +1,22 @@
+<ion-view view-title="Points Admin">
+  <ion-content class="padding">
+  <div class="padding-bottom">
+    <button class="button" 
+    ng-repeat="week in weeks"
+    ng-click="loadWeek(week)">{{week.weekNumber}}</button>
+  </div>
+    {{votes.length}}
+    <div class="action" ng-if="activeWeek">
+      Actions for week {{activeWeek.weekNumber}}
+      <button class="button button-block button-calm"
+      ng-click="scoreParticipation()">Score Participation week {{activeWeek.weekNumber}}</button>
+      <button class="button button-block button-calm"
+      ng-click="scoreCurrentWeek()">Score Current week {{activeWeek.weekNumber}}</button>
+      <button class="button button-block button-calm"
+      ng-click="scoreEcho()">Score Echo weeks {{activeWeek.weekNumber}}</button>
+    </div>
+    <pre>
+    
+    </pre>
+  </ion-content>
+</ion-view>

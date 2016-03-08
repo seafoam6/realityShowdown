@@ -75,10 +75,15 @@ angular.module('App').factory('Utils', function($ionicLoading,$ionicPopup, $log)
     },
 
     filterOutHelpers: function(data){
-      var newData =  listOfVotes = _.filter(data, function(value, index, collection) { 
+      var newData = _.filter(data, function(value, index, collection) { 
           return value.charAt(0) != '$'; 
         });
 
+      return newData
+    },
+
+    findUserByTwitterId: function(data){
+      var newData;
       return newData
     }
 

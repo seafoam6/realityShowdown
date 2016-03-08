@@ -1,16 +1,17 @@
 'use strict';
-angular.module('App').factory('Score', function(FURL, $firebaseArray, $firebase, $log, $firebaseObject, $firebaseAuth) {
+angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase, $log, $firebaseObject, $firebaseAuth) {
 
+  var service = this;
   var ref = new Firebase(FURL);
+  //get score ref
 
-
-
-  var Score = {
-    test: function(vote){
-      $log.log(vote)
-    }
-  }
-
-  return Score;
+  // service.getArrayOfUsers = function(data){
+  //   var newArray = [];
+  //    _.forEach(data, function(o){
+  //     newArray.push({id: o.$id, voteRef:})
+      
+  //   })
+  //    return newArray;
+  // }
 
 });

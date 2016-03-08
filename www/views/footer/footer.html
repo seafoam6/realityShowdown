@@ -9,7 +9,10 @@
   <!-- <a class="tab-item" ui-sref="standings">
     <i class="icon ion-trophy"></i>
   </a> -->
-  <a ng-if="isAdmin()" class="tab-item" ui-sref="admin">
+  <a ng-if="isAdmin" class="tab-item" ui-sref="admin">
     <i class="icon ion-wand"></i>
+  </a> 
+    <a class="tab-item" ng-click="authObj.$unauth(); logout()">
+    <i class="icon ion-log-out"></i>
   </a> 
 </div>

@@ -1,16 +1,18 @@
-<ion-view view-title="Home" >
-        <ion-content class="padding">
-          <h1>Hello {{user.name}}! </h1>
-          <p>Welcome to <strong>Reality Showdown</strong> Drag Race edition. Below you can vote on who you think will win, and see how many points you have. Be sure to vote each week.</p>
-            {{id}}
-          <div class="your-score">
-            <div class="score">0</div>
-            <div class="comment">Good Job!</div>
-          </div>
-          {{user}}
-          <button ng-click="authObj.$unauth(); logOut()" class="button button-clear button-positive">Logout</button> 
+<ion-view view-title="Home" hide-back-button="true" class="home-page">
+  <ion-content class="padding">
+    <h1>Hello {{user.name}}! </h1>
+    <p>Welcome to <strong>Reality Showdown</strong> Drag Race edition. Below you can vote on who you think will win, and see how many points you have. Be sure to vote each week.</p>
 
+    <div class="your-score">
+      <img class="avatar" ng-src="{{user.avatar}}">
+      <div class="score">0 Points</div>
+    </div>
 
-        </ion-content>
+    <img class="reaction" src="img/reactions/lowScore.gif">
+     
+  
+    
+
+  </ion-content>
 
 </ion-view>

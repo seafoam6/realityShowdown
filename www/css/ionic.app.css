@@ -9736,7 +9736,7 @@ a.button {
   flex-direction: column;
   align-items: center; }
   .social-login-wrapper button {
-    width: 160px;
+    width: 300px;
     margin-bottom: 20px; }
 
 .button {
@@ -9869,3 +9869,23 @@ a.button {
   flex-wrap: wrap; }
   .open-queens > * {
     flex: 0 1 auto; }
+
+.home-page .your-score {
+  border: 6px solid black;
+  width: 200px;
+  border-radius: 50%;
+  height: 200px;
+  padding: 50px;
+  font-size: 20px;
+  text-align: center;
+  margin: 0 auto 20px; }
+  .home-page .your-score .score {
+    margin-top: 20px; }
+
+.home-page .reaction {
+  margin: 0 auto;
+  display: table;
+  border-radius: 4px; }
+
+.home-page img {
+  max-width: 100%; }

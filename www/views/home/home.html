@@ -5,7 +5,7 @@
 
     <div class="your-score">
       <img class="avatar" ng-src="{{user.avatar}}">
-      <div class="score">0 Points</div>
+      <div class="score">{{user.totalPoints || 0}} Points</div>
     </div>
 
     <img class="reaction" src="img/reactions/lowScore.gif">

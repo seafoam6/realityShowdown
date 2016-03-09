@@ -5,7 +5,6 @@
     ng-repeat="week in weeks"
     ng-click="loadWeek(week)">{{week.weekNumber}}</button>
   </div>
-    {{votes.length}}
     <div class="action" ng-if="activeWeek">
       Actions for week {{activeWeek.weekNumber}}
       <button class="button button-block button-calm"

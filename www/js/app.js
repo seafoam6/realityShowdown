@@ -12,16 +12,6 @@ $stateProvider
       templateUrl: 'views/login/login.html',
       controller:'loginController'
     })
-    // .state('forgot', {
-    //   url: '/forgot',
-    //   templateUrl: 'views/forgot/forgot.html',
-    //   controller:'forgotController'
-    // })
-    // .state('register', {
-    //   url: '/register',
-    //   templateUrl: 'views/register/register.html',
-    //   controller:'registerController'
-    // })
     .state('admin', {
       url: '/admin',
       views:{
@@ -57,6 +47,16 @@ $stateProvider
         "":{
           templateUrl: 'views/vote/vote.html',
           controller:'voteController'
+        },
+        "footer":footer     
+      }
+    })
+    .state('scoreBoard', {
+      url: '/scoreBoard',
+      views:{
+        "":{
+          templateUrl: 'views/scoreBoard/scoreBoard.html',
+          controller:'scoreBoardController'
         },
         "footer":footer     
       }

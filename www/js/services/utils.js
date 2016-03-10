@@ -82,10 +82,7 @@ angular.module('App').factory('Utils', function($ionicLoading,$ionicPopup, $log)
       return newData
     },
 
-    findUserByTwitterId: function(data){
-      var newData;
-      return newData
-    }
+
 
 
   };

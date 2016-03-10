@@ -6,7 +6,7 @@ angular.module('App').controller('loginController', function ($scope, $state,$co
   var playersArray = $firebaseArray(new Firebase(FURL + 'players'))
   var playersObject = $firebaseObject(new Firebase(FURL + 'players'))
   var player = {}
-  var specific = $firebaseObject(new Firebase(FURL + 'players/-KC7sXP0cPdDrJUkeBF4'))
+
 
 
 
@@ -42,7 +42,6 @@ function waitforAuth(){
     // if player does not exist
       playersArray.$loaded().then(function(data){
         //$log.log('players array data', data)
-        
         
         //find match for username 
         var match = _.find(data, function(o) { return o.id == player.id })

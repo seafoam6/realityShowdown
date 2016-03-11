@@ -1,7 +1,13 @@
 <ion-view view-title="Score Board" hide-back-button="true" class="score-board">
   <ion-content class="padding">
   
-  
+  <div class="picked-queens">
+  <div class="queen" ng-repeat="player in players | orderBy: '-totalPoints'">
+  <div class="position">{{player.totalPoints}}</div>
+  <div class="img"><img ng-src="{{player.avatar}}"></div>
+  <div class="name">{{player.twitterName}}</div>
+  </div>
+  </div>
     
 
   </ion-content>

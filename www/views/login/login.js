@@ -45,12 +45,13 @@ function waitforAuth(){
         
         //find match for username 
         var match = _.find(data, function(o) { return o.id == player.id })
-
+        $log.log('match',match)
         if (!match){
           playersArray.$add(player)
           $localStorage.user = player
         } else {
           $log.log('player exists')
+          playersArray.$save(match);
           $localStorage.user = player
         }
 

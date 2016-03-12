@@ -3,7 +3,9 @@ angular.module('App').service('Player', function(FURL, $firebaseArray,$log, $loc
   var service = this
   var ref = new Firebase(FURL);
   var PlayerArray = $firebaseArray(new Firebase(FURL + 'players'))
-  //var authData = $firebaseAuth(ref).$getAuth();
+  
+
+  
 
 
 

@@ -14,8 +14,14 @@ angular.module('App').controller('loginController', function ($scope, $state,$co
     auth.$authWithOAuthPopup(socType)
       .then(function(authData){
         $localStorage.user = authData
-      }).catch(function(error) {
-          $log.error(error);   
+      }).catch(function(err) {
+          if (err.code === "TRANSPORT_UNAVAILABLE") {
+      // fall-back to browser redirects, and pick up the session
+      // automatically when we come back to the origin page
+      auth.authWithOAuthRedirect(socType, function(err) { 
+        $log.log(err)
+       });
+    }
     }); 
   };
 

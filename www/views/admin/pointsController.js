@@ -26,6 +26,10 @@ angular.module('App').controller('pointsController', function ($cordovaOauth, $f
   }
   
   var currentPlayers = $firebaseArray(new Firebase(FURL + 'players'))
+  var participationPoints = {
+    points:10,
+    week:1
+  }
 
   vm.scoreParticipation = function(vote){
     $log.log('vote id', vote.$id)
@@ -35,7 +39,9 @@ angular.module('App').controller('pointsController', function ($cordovaOauth, $f
       return o.id == vote.$id 
     })
         $log.log('match',match)
-
+        match.score = []
+        match.score.push(participationPoints)
+        currentPlayers.$save(match)
   }
 
   vm.dump = function(){

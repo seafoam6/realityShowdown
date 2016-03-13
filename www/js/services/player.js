@@ -14,7 +14,7 @@ angular.module('App').service('Player', function(FURL, $firebaseArray,$log, $loc
   }
 
   service.getSinglePlayerRef = function(id){
-    return $firebaseArray(new Firebase(FURL + 'players/' + id))
+    return $firebaseObject(new Firebase(FURL + 'players/' + id))
   }
 
   service.getPlayerId = function(){

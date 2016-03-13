@@ -66,7 +66,8 @@ $stateProvider
       views:{
         "":{
           templateUrl: 'views/admin/pointsAdmin.html',
-          controller:'pointsController'
+          controller:'pointsController',
+          controllerAs: 'vm'
         },
         "footer":footer     
       }

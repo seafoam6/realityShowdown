@@ -4,8 +4,7 @@ angular.module('App').factory('Show', function(FURL, $firebaseArray, $firebaseOb
   var Show = $firebaseObject
     return function() {
       var ref = new Firebase(FURL).child('showDetails');
-      // create an instance of User (the new operator is required)
-      return new Show(ref);
+      return Show(ref);
     }
 
 });

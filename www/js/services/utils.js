@@ -82,6 +82,21 @@ angular.module('App').factory('Utils', function($ionicLoading,$ionicPopup, $log)
       return newData
     },
 
+    fbArrayToPoa: function(data){
+      var newData = [];
+       _.forEach(data, function(value){
+         newData.push({
+          age:value.age,
+          birthName:value.birthName,
+          isActive:value.isActive,
+          name:value.name,
+          twitter:value.twitter
+         })
+       })
+
+      return newData
+    },
+
 
 
 

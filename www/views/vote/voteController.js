@@ -31,7 +31,7 @@ angular.module('App').controller('voteController', function ($scope, $state, $co
         //$scope.pickedQueens = data.guesses;
         $scope.prevVote = 'noVote'
       } else {
-        $log.log('else', data)
+        $log.log('previous vote', data)
         $scope.prevVote = 'vote'
         $scope.pickedQueens = data.guesses;
       }
@@ -95,7 +95,7 @@ weeks.$loaded()
     $scope.prevVote = 'noVote'
 
     $scope.contestants = $firebaseArray(contestantRef)
-    $log.log($scope.openVoting, $scope.prevVote, $scope.contestants)
+    //$log.log($scope.openVoting, $scope.prevVote, $scope.contestants)
   }
 
 $scope.deletePrevVote = function(){
@@ -121,7 +121,9 @@ $scope.deletePrevVote = function(){
       vote.showName = show.name;
       vote.playerId = $scope.playerId;
       vote.weekNumber = currentWeek.weekNumber;
-      vote.guesses = $scope.pickedQueens;
+      vote.guesses = Utils.fbArrayToPoa($scope.pickedQueens);
+      $log.log('guesses',vote.guesses)
+      //$log.log($scope.pickedQueens)
       Vote.submitVote(vote)
       $scope.prevVote = 'vote'
     } else {

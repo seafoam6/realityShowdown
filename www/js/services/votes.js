@@ -7,8 +7,8 @@ angular.module('App').factory('Vote', function(FURL, $firebaseArray, $firebase, 
 
   var Vote = {
     submitVote : function(vote){
-    $log.log(vote)
-    var voteSpot = new Firebase(FURL).child('votes' + '/' +
+    $log.log('vote about to be submitted', vote)
+    var voteSpot = new Firebase(FURL).child('votes/' +
       vote.showName + 
       '/season' + 
       vote.season +
@@ -16,7 +16,7 @@ angular.module('App').factory('Vote', function(FURL, $firebaseArray, $firebase, 
       vote.weekNumber + 
       '/' +
       vote.playerId)
-    $firebaseArray(voteSpot).$add(vote)
+    voteSpot.set(vote)
     //voteSpot.$add(vote)
     },
 

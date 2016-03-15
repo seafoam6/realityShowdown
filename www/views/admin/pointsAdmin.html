@@ -11,7 +11,13 @@
       <button class="button" ng-click="vm.getAllVotesFromActiveWeek()">list all votes from week {{vm.activeWeek.weekNumber}}</button>
       <div class="weeks-votes">
         <ul class="vote" ng-repeat="vote in vm.weekVotes">
-          <li ng-click="vm.scoreParticipation(vote)">{{vote.$id}}</li>
+          <li >
+          {{vote.$id}}
+          <button class="button" 
+          ng-click="vm.scoreParticipation(vote)">score participation</button>
+          <button class="button" 
+          ng-click="vm.showVoteDetails(vote)">get Vote Details</button>
+          </li>
         </ul>
         <div class="energized">
           current: {{vm.currentPlayer}}
@@ -20,7 +26,8 @@
      
     </div>
     <div class="spill-box">
-    <button class="button" ng-click="vm.dump()">🍕</button>
+    {{vm.specific.$value}}
+    <button class="button" ng-click="vm.test()">🍕</button>
     </div>
 
   </ion-content>

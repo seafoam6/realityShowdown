@@ -30,7 +30,7 @@
           <div>
             Loser
           </div>
-          {{week.loser.name}}
+ 
 <!--           <select  ng-model="week.loser" 
               ng-options="queen.name for queen in queens" >
             <option value=""> -- Choose Queen --</option>
@@ -39,7 +39,7 @@
           <div ng-repeat="queen in queens track by $index">
           <label><input ng-checked="!queen.isActive" type="checkbox" ng-click="setLoser(queen)">{{queen.name}}</label></div>
 
-       LOSER {{week.loser.name}}
+       LOSER/s <div ng-repeat="loser in week.loser track by $index" class="">{{loser.name}}</div>
         
 
 

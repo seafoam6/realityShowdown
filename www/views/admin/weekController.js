@@ -66,7 +66,7 @@ $scope.score = function(week){
     $scope.week = {
       weekNumber:nextWeek(),
       isActive:true,
-      loser:'',
+      loser:[],
       scored:false
     }
   }
@@ -80,9 +80,11 @@ $scope.score = function(week){
     clearForm()
     hideForm()
   }
-
+var losers = [];
   $scope.setLoser = function(queen){
     $log.log(queen)
+    losers.push(queen)
+    $scope.week.loser = losers
   }
 
   
@@ -100,7 +102,7 @@ $scope.score = function(week){
   }
 
   $scope.saveWeek = function(week){
-    //$log.log('edited', week)
+    $log.log('edited', week)
     $scope.week = week;
     $scope.weeks.$save(week); 
     hideForm()

@@ -26,16 +26,20 @@
              </div>
            </label>
         </li>
-        <label class="item item-input item-select">
-          <div class="input-label">
+        
+          <div>
             Loser
           </div>
           {{week.loser.name}}
-          <select  ng-model="week.loser" 
+<!--           <select  ng-model="week.loser" 
               ng-options="queen.name for queen in queens" >
             <option value=""> -- Choose Queen --</option>
-          </select>
-        </label>
+          </select> -->
+          
+          <div ng-repeat="queen in queens track by $index">
+          <label><input ng-checked="!queen.isActive" type="checkbox" ng-click="setLoser(queen)">{{queen.name}}</label></div>
+
+       LOSER {{week.loser.name}}
         
 
 

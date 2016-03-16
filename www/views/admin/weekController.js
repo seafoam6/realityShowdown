@@ -24,12 +24,12 @@ angular.module('App').controller('weekController', function ($cordovaOauth, $fir
         $scope.votes = data
         return data;
       }).then(function(data){
-        $log.log('votes for this week', data)
+        //$log.log('votes for this week', data)
         var playersWhoVotedThisWeek = Utils.filterOutHelpers(Object.keys(data))
         
         //single vote ID
         var voteIDMaybe = Object.keys(data[playersWhoVotedThisWeek[0]])
-          $log.log(voteIDMaybe)
+          //$log.log(voteIDMaybe)
 
       })
     }
@@ -79,6 +79,10 @@ $scope.score = function(week){
   $scope.cancelNewWeek = function(){
     clearForm()
     hideForm()
+  }
+
+  $scope.setLoser = function(queen){
+    $log.log(queen)
   }
 
   

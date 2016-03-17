@@ -27,14 +27,7 @@
            </label>
         </li>
         
-          <div>
-            Loser
-          </div>
  
-<!--           <select  ng-model="week.loser" 
-              ng-options="queen.name for queen in queens" >
-            <option value=""> -- Choose Queen --</option>
-          </select> -->
           
           <div ng-repeat="queen in queens track by $index">
           <label><input ng-checked="!queen.isActive" type="checkbox" ng-click="setLoser(queen)">{{queen.name}}</label></div>

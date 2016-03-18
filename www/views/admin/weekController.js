@@ -30,6 +30,14 @@ angular.module('App').controller('weekController', function ($cordovaOauth, $fir
 
   })
 
+  new Promise(function(resolve, reject){
+    resolve(Queens.getAllQueens())
+  }).then(function(result){
+    $log.log(result)
+  }).catch(function(err){
+    $log.error(err)
+  })
+
 
   function nextWeek(){
     if ($scope.weeks.length){

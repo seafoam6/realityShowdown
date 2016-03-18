@@ -9,4 +9,26 @@ angular.module('App').service('Queens', function(FURL, $firebaseArray, $firebase
     $log.log('help')
   }
 
+  //get all queens
+  service.getAllQueens = function(){
+    return ref.once('value').then(function(snapshot) {
+      return snapshot.val();
+    });
+  }
+
+  //add queen
+    service.addQueen = function(queenToAdd){
+    
+  }
+
+  //remove queen
+
+  //get active queens
+
+  //get all inactive queens
+
+  //set queen inactive
+
+  //set queen active
+
 });

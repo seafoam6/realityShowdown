@@ -31,13 +31,20 @@ angular.module('App').controller('weekController', function ($cordovaOauth, $fir
   })
 
   new Promise(function(resolve, reject){
-    resolve(Queens.getInactiveQueens())
+    resolve(Queens.getAllQueens())
   }).then(function(result){
-    $log.log(result)
-    $scope.result = result
+    $scope.queens = result
   }).catch(function(err){
     $log.error(err)
   })
+
+  // new Promise(function(resolve, reject){
+  //   resolve(Queens.getActiveQueens())
+  // }).then(function(result){
+  //   $scope.result = result
+  // }).catch(function(err){
+  //   $log.error(err)
+  // })
 
 
   function nextWeek(){
@@ -77,6 +84,10 @@ var losers = [];
     // if loser is not in array
     losers.push(queen)
     $scope.week.loser = losers
+  }
+
+  $scope.clearLosers = function(){
+    $scope.week.loser = []
   }
 
   

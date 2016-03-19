@@ -9892,3 +9892,6 @@ a.button {
 
 .home-page h3 {
   text-align: center; }
+
+.week-admin .active {
+  background: red; }

@@ -1,10 +1,10 @@
-<ion-view view-title="Week Admin">
+<ion-view class="week-admin" view-title="Week Admin">
   <ion-content class="padding">
   <div class="padding-bottom">
-  <!-- <div><pre>{{result | json}}</pre></div> -->
-  <div ng-repeat="resultSingle in result">
+  <!-- <div><pre>{{result }}</pre></div> -->
+<!--   <div ng-repeat="resultSingle in result">
   {{resultSingle.name}}
-  </div>
+  </div> -->
     <button class="button" 
     ng-repeat="week in weeks"
     ng-click="loadWeek(week)">{{week.weekNumber}}</button>
@@ -34,9 +34,11 @@
  
           
           <div ng-repeat="queen in queens track by $index">
-          <label><input ng-checked="!queen.isActive" type="checkbox" ng-click="setLoser(queen)">{{queen.name}}</label></div>
+          <label ng-class="{'active':!queen.isActive}"><input ng-checked="!queen.isActive" type="checkbox" ng-click="setLoser(queen)">{{queen.name}}</label></div>
 
-       LOSER/s <div ng-repeat="loser in week.loser track by $index" class="">{{loser.name}}</div>
+       Sashayed Away this week <div ng-repeat="loser in week.loser track by $index" class="">{{loser.name}}</div>
+
+       <button class="button" ng-click="clearLosers()">Clear Losers</button>
         
 
       </div>

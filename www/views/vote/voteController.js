@@ -51,7 +51,7 @@ angular.module('App').controller('voteController', function ($scope, $state, $co
 
 weeks.$loaded()
   .then(function(data){
-    currentWeek = _.find(data, { 'isActive': true })
+    currentWeek = _.findLast(data, { 'isActive': true })
     $log.log('cur', currentWeek)
     $scope.week = currentWeek
     setOpenVoting(currentWeek);

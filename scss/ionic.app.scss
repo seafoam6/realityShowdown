@@ -23,3 +23,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "login";
 @import "voting";
 @import "home";
+
+.week-admin{
+  .active{
+    background:red;
+  }
+}

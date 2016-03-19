@@ -74,8 +74,6 @@ angular.module('App').service('Queens', function(FURL, $firebaseArray, $firebase
       var j = snapshot.val();
       var result;
       _.forEach(j, function(o,i,d){
-        $log.log(o.name, i);
-        //$log.log(queenName)
         if(o.name == queenName){
           result = i;
         }

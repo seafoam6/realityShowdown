@@ -105,9 +105,13 @@ var losers = [];
   }
 
   $scope.saveWeek = function(week){
-    $log.log('edited', week)
+    //$log.log('edited', week)
     $scope.week = week;
     $scope.weeks.$save(week); 
+    _.forEach($scope.week.loser, function(value, index, collection){
+      
+      Queens.setQueenInactive(value.name)
+    })
     hideForm()
   }
   $scope.saveNewWeek = function(week){

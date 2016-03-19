@@ -1,5 +1,5 @@
 'Use Strict';
-angular.module('App').controller('voteController', function ($scope, $state, $cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseObject, $firebaseArray, Auth, FURL, Utils, Player, $log, $filter,  Show, Vote) {
+angular.module('App').controller('voteController', function ($scope, $state, $cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseObject, $firebaseArray, Auth, FURL, Utils, Player, $log, $filter,  Show, Vote, Queens, Weeks) {
 
   $scope.pickedQueens = [];
   $scope.playerId = Player.getPlayerId();
@@ -7,15 +7,38 @@ angular.module('App').controller('voteController', function ($scope, $state, $co
   var show = new Show;
   var allQueens, allWeeks, activeQueens, activeWeeks, selectableQueens, vote = {season:'',showName:'',playerId:'',weekNumber:'',guesses:''}, currentWeek, pristineContestants, voteDetails = {};
 
+
+
+// WEEKS // WEEKS // WEEKS
+  new Promise(function(resolve, reject){
+    resolve(Weeks.getActiveWeeks())
+  }).then(function(result){
+    if (result){
+      $log.log(result.weekNumber)
+      $scope.currentWeek = result.weekNumber
+    } else{
+      $log.log('no match')
+      $scope.currentWeek = false
+    }
+    return result
+  }).then(function(currentWeek){
+    setOpenVoting(currentWeek)
+  }).then(function(){
+    getPreviousVote()
+  }).catch(function(err){
+    $log.error(err)
+  })
+
   
 
   var contestantRef = new Firebase(FURL).child('queens');
   
   var contestants = $firebaseArray(contestantRef)
 
-  var weeks = $firebaseArray(new Firebase(FURL).child('weeks'));
+  
 
   function setOpenVoting(currentWeek){
+    $log.log('current weeek', currentWeek)
     if (currentWeek){
       $scope.openVoting = 'open'
     } else {
@@ -24,7 +47,7 @@ angular.module('App').controller('voteController', function ($scope, $state, $co
     Utils.hide();
   }
 
-  Utils.show();
+ Utils.show();
 
   function loadPrevVote(data){
     if (typeof data === 'undefined'){
@@ -38,7 +61,7 @@ angular.module('App').controller('voteController', function ($scope, $state, $co
   }
 
   function getPreviousVote(){
-
+    $log.log('get Previous Vote')
     new Promise(function(resolve, reject){
       resolve(Vote.retrieveVote(makeVoteDetails()))
     })
@@ -49,25 +72,7 @@ angular.module('App').controller('voteController', function ($scope, $state, $co
     });
   }
 
-weeks.$loaded()
-  .then(function(data){
-    currentWeek = _.findLast(data, { 'isActive': true })
-    $log.log('cur', currentWeek)
-    $scope.week = currentWeek
-    setOpenVoting(currentWeek);
-    getPreviousVote()
-    return data;
-  })
-  .then(function(data){
 
-    var loserNames = Utils.calcLoserQueens(data)
-
-    $scope.contestants = Utils.removeLoserQueens(loserNames,contestants); 
-
-  })
-  .catch(function(error) {
-    console.log("Error:", error);
-  });
 
  
       
@@ -75,7 +80,8 @@ weeks.$loaded()
       voteDetails.season = show.season;
       voteDetails.showName = show.name;
       voteDetails.playerId = $scope.playerId;
-      voteDetails.weekNumber = currentWeek.weekNumber;
+      voteDetails.weekNumber = currentWeek;
+      $log.log('vote Details', voteDetails)
       return voteDetails;
   }
 

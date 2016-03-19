@@ -1,15 +1,22 @@
 'use strict';
-angular.module('App').factory('Weeks', function(FURL, $firebaseArray, $firebase, $log, $firebaseObject, $firebaseAuth) {
+angular.module('App').service('Weeks', function(FURL, $firebaseArray, $firebase, $log, $firebaseObject, $firebaseAuth) {
 
-  var weeksRef = new Firebase(FURL + 'weeks');
+  var service = this;
+  var ref = new Firebase(FURL + 'weeks');
  
-  var Weeks = {
-    getWeeks:function(){
-      return $firebaseArray(weeksRef);
-    }
+  service.getWeeks = function(){
+   return ref.once('value').then(function(snapshot) {
+      return snapshot.val();
+    });
   }
-  
-  return Weeks;
+
+  service.getActiveWeeks = function(){
+    return ref.once('value').then(function(snapshot) {
+      var j = snapshot.val();
+      j = _.findLast(j,['isActive', true])
+      return j;
+    });
+  }
 
 
 });

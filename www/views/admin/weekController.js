@@ -31,9 +31,10 @@ angular.module('App').controller('weekController', function ($cordovaOauth, $fir
   })
 
   new Promise(function(resolve, reject){
-    resolve(Queens.getAllQueens())
+    resolve(Queens.getInactiveQueens())
   }).then(function(result){
     $log.log(result)
+    $scope.result = result
   }).catch(function(err){
     $log.error(err)
   })

@@ -9,6 +9,8 @@ angular.module('App').service('Queens', function(FURL, $firebaseArray, $firebase
     $log.log('help')
   }
 
+
+
   //get all queens
   service.getAllQueens = function(){
     return ref.once('value').then(function(snapshot) {
@@ -21,11 +23,23 @@ angular.module('App').service('Queens', function(FURL, $firebaseArray, $firebase
     
   }
 
-  //remove queen
-
   //get active queens
+  service.getActiveQueens = function(){
+    return ref.once('value').then(function(snapshot) {
+      var j = snapshot.val();
+      j = _.filter(j,['isActive', true])
+      return j;
+    });
+  }
 
   //get all inactive queens
+    service.getInactiveQueens = function(){
+    return ref.once('value').then(function(snapshot) {
+      var j = snapshot.val();
+      j = _.filter(j,['isActive', false])
+      return j;
+    });
+  }
 
   //set queen inactive
 

@@ -1,6 +1,10 @@
 <ion-view view-title="Week Admin">
   <ion-content class="padding">
   <div class="padding-bottom">
+  <!-- <div><pre>{{result | json}}</pre></div> -->
+  <div ng-repeat="resultSingle in result">
+  {{resultSingle.name}}
+  </div>
     <button class="button" 
     ng-repeat="week in weeks"
     ng-click="loadWeek(week)">{{week.weekNumber}}</button>
@@ -35,16 +39,6 @@
        LOSER/s <div ng-repeat="loser in week.loser track by $index" class="">{{loser.name}}</div>
         
 
-
-        <li class="item">
-        <label ng-if="!week.scored">
-            Scoring didn't happened
-          </label>
-          <label ng-if="week.scored">
-            Scoring  happened
-          </label>
-           <button ng-if="!week.scored" class="button item-note" ng-click="score(week)">score the week</button>
-        </li>
       </div>
 
 

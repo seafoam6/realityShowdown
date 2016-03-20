@@ -63,7 +63,14 @@ angular.module('App').factory('Vote', function(FURL, $firebaseArray, $firebase, 
       voteDetails.weekNumber + 
       '/' +
       voteDetails.playerId)
-
+      $log.log('votes' + '/' +
+      voteDetails.showName + 
+      '/season' + 
+      voteDetails.season +
+      '/week' + 
+      voteDetails.weekNumber + 
+      '/' +
+      voteDetails.playerId)
       voteSpot.set(null);
 
       // return $firebaseArray(voteSpot).$loaded().then(function(data){

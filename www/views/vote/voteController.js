@@ -5,18 +5,27 @@ angular.module('App').controller('voteController', function ($scope, $state, $co
   $scope.playerId = Player.getPlayerId();
   //this is for show info
   
-  var allQueens, allWeeks, activeQueens, activeWeeks, selectableQueens, vote = {season:'',showName:'',playerId:'',weekNumber:'',guesses:''}, currentWeek, pristineContestants, voteDetails = {};
+  var allQueens, show, allWeeks, activeQueens, activeWeeks, selectableQueens, vote = {season:'',showName:'',playerId:'',weekNumber:'',guesses:''}, currentWeek, pristineContestants, voteDetails = {};
 
 
 // active contestants
-new Promise(function(resolve, reject){
+function getActiveContestants(){
+  new Promise(function(resolve, reject){
     resolve(Queens.getActiveQueens())
   }).then(function(result){
-    $scope.contestants = result
+    $log.log('geateer', result)
+    $scope.$apply(function(){
+      $scope.contestants = result
+    })
     return result
+  }).then(function(result){
+    pristineContestants = result
   }).catch(function(err){
     $log.error(err)
   })
+}
+
+getActiveContestants()
 
 
 
@@ -100,6 +109,8 @@ new Promise(function(resolve, reject){
     return new Promise(function(resolve, reject){
       resolve(Show.getShowDetails())
     }).then(function(show){
+      $scope.show = show
+
       voteDetails.season = show.season;
       voteDetails.showName = show.name;
       voteDetails.playerId = $scope.playerId;
@@ -109,7 +120,7 @@ new Promise(function(resolve, reject){
     getPreviousVote()
     return
   })
-      
+     
   }
 
 // Selected queens from buttons
@@ -124,17 +135,21 @@ new Promise(function(resolve, reject){
 
 // clears current selection on vote
   $scope.clear = function(){
-    $scope.pickedQueens = [];
+    $scope.pickedQueens= []
     $scope.prevVote = 'noVote'
+    $scope.contestants = pristineContestants
+    //$log.log('bump', pristineContestants, $scope.contestants)
 
-    $scope.contestants = $firebaseArray(contestantRef)
+    getActiveContestants()
     //$log.log($scope.openVoting, $scope.prevVote, $scope.contestants)
   }
 
 $scope.deletePrevVote = function(){
+
   //delete previous entry
-  Vote.deleteVote(makeVoteDetails());
-  $scope.contestants = $firebaseArray(contestantRef)
+  Vote.deleteVote(voteDetails);
+
+  getActiveContestants()
   $scope.prevVote = 'noVote'
   $scope.pickedQueens = [];
 }
@@ -150,10 +165,11 @@ $scope.deletePrevVote = function(){
 
   $scope.castVote = function(){
     if (voteCompleted()){
-      vote.season = show.season;
-      vote.showName = show.name;
+
+      vote.season = $scope.show.season;
+      vote.showName = $scope.show.name;
       vote.playerId = $scope.playerId;
-      vote.weekNumber = currentWeek.weekNumber;
+      vote.weekNumber = $scope.currentWeek;
       vote.guesses = Utils.fbArrayToPoa($scope.pickedQueens);
       $log.log('guesses',vote.guesses)
       //$log.log($scope.pickedQueens)

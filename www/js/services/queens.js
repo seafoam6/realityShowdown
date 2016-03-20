@@ -34,7 +34,7 @@ angular.module('App').service('Queens', function(FURL, $firebaseArray, $log, $fi
 
   //get all inactive queens
   service.getInactiveQueens = function(){
-    return ref.once('value').then(function(snapshot) {
+    return ref.on('value').then(function(snapshot) {
       var j = snapshot.val();
       j = _.filter(j,['isActive', false])
       return j;

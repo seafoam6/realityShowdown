@@ -21,19 +21,19 @@ angular.module('App').factory('Vote', function(FURL, $firebaseArray, $firebase, 
     },
 
     retrieveVote : function(voteDetails){
-      //$log.log(voteDetails)
-      var voteSpot = new Firebase(FURL).child('votes' + '/' +
+      //$log.log('retrieve vote details', voteDetails)
+      var voteSpot = new Firebase(FURL).child('votes/' +
       voteDetails.showName + 
       '/season' + 
       voteDetails.season +
       '/week' + 
       voteDetails.weekNumber + 
-      '/' +
+      '/' + 
       voteDetails.playerId)
+      
+      return voteSpot.once('value').then(function(snapshot){
 
-      return $firebaseArray(voteSpot).$loaded().then(function(data){
-        // 0 passes in first child of object
-        return data[0]
+        return snapshot.val();
       })
     },
 

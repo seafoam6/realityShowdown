@@ -4,8 +4,19 @@ angular.module('App').controller('voteController', function ($scope, $state, $co
   $scope.pickedQueens = [];
   $scope.playerId = Player.getPlayerId();
   //this is for show info
-  var show = new Show;
+  
   var allQueens, allWeeks, activeQueens, activeWeeks, selectableQueens, vote = {season:'',showName:'',playerId:'',weekNumber:'',guesses:''}, currentWeek, pristineContestants, voteDetails = {};
+
+
+// active contestants
+new Promise(function(resolve, reject){
+    resolve(Queens.getActiveQueens())
+  }).then(function(result){
+    $scope.contestants = result
+    return result
+  }).catch(function(err){
+    $log.error(err)
+  })
 
 
 
@@ -23,8 +34,10 @@ angular.module('App').controller('voteController', function ($scope, $state, $co
     return result
   }).then(function(currentWeek){
     setOpenVoting(currentWeek)
+    return
   }).then(function(){
-    getPreviousVote()
+    makeVoteDetails()
+    return
   }).catch(function(err){
     $log.error(err)
   })
@@ -50,6 +63,7 @@ angular.module('App').controller('voteController', function ($scope, $state, $co
  Utils.show();
 
   function loadPrevVote(data){
+    $log.log('load prev vote', data)
     if (typeof data === 'undefined'){
         //$scope.pickedQueens = data.guesses;
         $scope.prevVote = 'noVote'
@@ -61,13 +75,19 @@ angular.module('App').controller('voteController', function ($scope, $state, $co
   }
 
   function getPreviousVote(){
-    $log.log('get Previous Vote')
+    $log.log('get Previous Vote', voteDetails)
     new Promise(function(resolve, reject){
-      resolve(Vote.retrieveVote(makeVoteDetails()))
+      resolve(Vote.retrieveVote(voteDetails))
     })
     .then(function(data){
-      //$log.log(data)
-      loadPrevVote(data)
+      //test to see if previous vote exists
+      if (_.isNil(data)){
+        $log.log('no previous data')
+        $scope.prevVote = 'noVote'
+      } else {
+        loadPrevVote(data)
+      }
+      
       return data    
     });
   }
@@ -77,12 +97,19 @@ angular.module('App').controller('voteController', function ($scope, $state, $co
  
       
   function makeVoteDetails(){
+    return new Promise(function(resolve, reject){
+      resolve(Show.getShowDetails())
+    }).then(function(show){
       voteDetails.season = show.season;
       voteDetails.showName = show.name;
       voteDetails.playerId = $scope.playerId;
-      voteDetails.weekNumber = currentWeek;
-      $log.log('vote Details', voteDetails)
+      voteDetails.weekNumber = $scope.currentWeek;
       return voteDetails;
+    }).then(function(){
+    getPreviousVote()
+    return
+  })
+      
   }
 
 // Selected queens from buttons
@@ -139,11 +166,6 @@ $scope.deletePrevVote = function(){
 
   }
   
- // write way to reverse selection order
-
-$scope.thing = function(){
-  $log.log('you pushed thing button')
-}
 
 
 

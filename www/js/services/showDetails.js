@@ -1,11 +1,13 @@
 'use strict';
-angular.module('App').factory('Show', function(FURL, $firebaseArray, $firebaseObject) {
+angular.module('App').service('Show', function(FURL, $firebaseArray, $firebaseObject, $log) {
 
-  var Show = $firebaseObject
-    return function() {
-      var ref = new Firebase(FURL).child('showDetails');
-      // create an instance of User (the new operator is required)
-      return new Show(ref);
-    }
+  var service = this;
+  var ref = new Firebase(FURL).child('showDetails');
+
+  service.getShowDetails = function(){
+    return ref.once('value').then(function(snapshot) {
+      return snapshot.val();
+    });
+  }
 
 });

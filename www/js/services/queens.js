@@ -1,5 +1,5 @@
 'use strict';
-angular.module('App').service('Queens', function(FURL, $firebaseArray, $firebase, $log, $firebaseObject, $firebaseAuth) {
+angular.module('App').service('Queens', function(FURL, $firebaseArray, $log, $firebaseObject, $firebaseAuth) {
 
   var service = this;
   var ref = new Firebase(FURL).child('queens');

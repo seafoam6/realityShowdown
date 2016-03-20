@@ -1,21 +1,37 @@
 'use strict';
-angular.module('App').factory('Users', function(FURL, $firebaseArray,$log, $localStorage, $firebaseObject, $firebaseAuth) {
+angular.module('App').service('Users', function(FURL, $firebaseArray,$log, $localStorage, $firebaseObject, $firebaseAuth) {
   
-   var usersRef = new Firebase(FURL+'players');
-    var users = $firebaseArray(usersRef);
+  var service = this;
+  var ref = new Firebase(FURL+'players');
+  
+  service.getAllUsers = function(){
+    return ref.once('value').then(function(snapshot) {
+      return snapshot.val();
+    })
+  }
 
-    var Users = {
-      getProfile: function(uid){
-        return $firebaseObject(usersRef.child(uid));
-      },
-      getDisplayName: function(uid){
+  service.getUserByTwitter = function(twitterId){
+    return ref.once('value').then(function(snapshot) {
+      var j = snapshot.val();
+      /////
+      ////
+      ///
+      //magic key finder!
+      /*           */
+      var result;
+      _.forEach(j, function(value, index, collection){
+        //$log.log('in userbytwitter', value.name, index);
+        //$log.log(queenName)
+        //$log.log(value, twitterId)
+        if(value.id == twitterId){
+          result = index;
+        }
+      })
+      //$log.log('pre', result)
+      return result
+    });
+  }
 
-        return users.$loaded().$getRecord(uid).id;
-      },
-      all: users
-    };
-
-    return Users;
-
+    
 
 });

@@ -1,34 +1,27 @@
 <ion-view view-title="Points Admin">
   <ion-content class="padding points-admin">
-  {{vm.show}}
   <div class="padding-bottom">
     <button class="button" 
     ng-repeat="week in vm.weeks"
-    ng-click="vm.loadWeek(week)">{{week.weekNumber}}</button>
+    ng-click="vm.loadWeek(week)">Week {{week.weekNumber}}</button>
   </div>
     <div class="action" ng-if="vm.activeWeek">
-      <div>Active Week: {{vm.activeWeek.weekNumber}}</div>
-      <button class="button" ng-click="vm.getAllVotesFromActiveWeek()">list all votes from week {{vm.activeWeek.weekNumber}}</button>
-      <div class="weeks-votes">
-        <ul class="vote" ng-repeat="vote in vm.weekVotes">
-          <li >
-          {{vote.$id}}
-          <button class="button" 
-          ng-click="vm.scoreParticipation(vote)">score participation</button>
-          <button class="button" 
-          ng-click="vm.showVoteDetails(vote)">get Vote Details</button>
-          </li>
-        </ul>
-        <div class="energized">
-          current: {{vm.currentPlayer}}
-        </div>
-      </div>
+      <h3>Actions for Week {{vm.activeWeek.weekNumber}}</h3>
+      <button class="button" ng-click="vm.scoreParticipation()">
+        Score Participation
+      </button>
+      <button class="button"
+      >
+        Score Bullseye Points
+      </button>
+      <button class="button"
+      >
+        Score Echoes
+      </button>
+    </div>
+      
      
-    </div>
-    <div class="spill-box">
-    {{vm.specific.$value}}
-    <button class="button" ng-click="vm.test()">🍕</button>
-    </div>
+   
 
   </ion-content>
 </ion-view>

@@ -37,21 +37,21 @@ angular.module('App').factory('Vote', function(FURL, $firebaseArray, $firebase, 
       })
     },
 
-    retrieveAllVotes : function(voteDetails){
-      //$log.log(voteDetails)
-      var voteSpot = new Firebase(FURL).child('votes' + '/' +
-      voteDetails.showName + 
+    getWeeksVote : function(showDetails, weekNumber){
+      $log.log('retrieve vote details', showDetails, weekNumber)
+      var voteSpot = new Firebase(FURL).child('votes/' +
+      showDetails.name + 
       '/season' + 
-      voteDetails.season +
+      showDetails.season +
       '/week' + 
-      voteDetails.weekNumber + '/')
+      weekNumber)
 
-      return $firebaseArray(voteSpot).$loaded().then(function(data){
-        $log.log('vs',voteSpot)
-        $log.log('in votespot', data[0])
-        return data
+
+      return voteSpot.once('value').then(function(snapshot){
+        return snapshot.val();
       })
     },
+
 
     deleteVote : function(voteDetails){
       //$log.log(voteDetails)
@@ -72,12 +72,6 @@ angular.module('App').factory('Vote', function(FURL, $firebaseArray, $firebase, 
       '/' +
       voteDetails.playerId)
       voteSpot.set(null);
-
-      // return $firebaseArray(voteSpot).$loaded().then(function(data){
-      //   // 0 passes in first child of object
-      //   var j = data[0].$id
-      //   $firebaseArray(voteSpot).$remove(j)
-      // })
     }
 
   }

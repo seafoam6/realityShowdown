@@ -4,3 +4,4 @@ www/secret.js
 node_modules/
 platforms/
 plugins/
+firebase.json

@@ -10,7 +10,9 @@ Things that would be great for anyone to work on if they have time:
 
 
 
-* Scoring admin. I am thinking each week 10 points participation. 20 for matching a previous week. 30 for matching the current week. Each point is going to be a node on the player. I hope to have this done before episode 2.
+* Chat Page
+* A way to see previous predictions
+* See What everyone guessed
 * General look and feel. Theres' a lot of native Ionic functionality that could be added pretty easily and would make a big difference.
 * better use of authentication, it could be more secure!
 * Mobile login, this doesn't work, something to do with the pop-up on mobile. 

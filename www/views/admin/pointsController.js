@@ -58,11 +58,11 @@ angular.module('App').controller('pointsController', function ($cordovaOauth, $f
     new Promise(function(resolve, reject){
       resolve(Vote.getWeeksVote(vm.show, vm.activeWeek.weekNumber))
     }).then(function(results){
-      $log.log('all votes for this week',results)
+      //$log.log('all votes for this week',results)
       return results
     }).then(function(results){
       _.forEach(results, function(value, index, collection){
-        $log.log(index)
+        //$log.log(index)
         Score.giveParticipationPoints(value, index, participationPoints)
       })
     }).catch(function(err){

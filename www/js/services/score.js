@@ -5,28 +5,65 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
   var ref = new Firebase(FURL);
 
   service.giveParticipationPoints = function(vote, playerId, pointBlock){
-    //$log.log('give participation', vote)
 
     new Promise(function(resolve, reject){
       resolve(Users.getUserByTwitter(playerId))
-    }).then(function(userId){
+      }).then(function(userId){
 
-      new Promise(function(resolve, reject){
-        resolve(service.checkIfScoreBlockExists(userId,pointBlock))
-      }).then(function(result){
-        if (!result){
-          ref.child('players/' + userId + '/points').push(pointBlock)
-        } else {
-          $log.log("already scored!")
-        }
-      })
 
-      
- 
+        new Promise(function(resolve, reject){
+          resolve(service.checkIfScoreBlockExists(userId,pointBlock))
+          }).then(function(result){
+          if (result == 'false'){
+            ref.child('players/' + userId + '/points').push(pointBlock)
+          } else {
+            $log.log("already scored!")
+          }
+        })
+
     })
+  },
+
+  service.BullseyePoints = function(fbVote, playerId, pointBlock, weekLoser){
+
+
+    var hashKey = Object.keys(fbVote)
+    var vote = fbVote[hashKey]
+    var guesses = fbVote[hashKey].guesses 
+    var weekNumber = fbVote[hashKey].weekNumber
+    var lastPlace = _.last(guesses)
+
+    //$log.log(lastPlace)
+    // get week loser ARRAY
+    // loop through array
+
+    _.forEach(weekLoser, function(loser, index, collection){
+      
+      if (loser.name == lastPlace.name){
+        $log.log('trigger', playerId)
+        new Promise(function(resolve, reject){
+          resolve(Users.getUserByTwitter(playerId))
+          }).then(function(userId){
+            new Promise(function(resolve, reject){
+              resolve(service.checkIfScoreBlockExists(userId,pointBlock))
+              }).then(function(result){
+              if (result == 'false'){
+                ref.child('players/' + userId + '/points').push(pointBlock)
+              } else {
+                $log.log("already scored!")
+              }
+            })
+        })
+
+      } 
+    })
+    // see if week loser matches lastPlace
+
+
     
-    //need to find playerID here
-    //ref.child('players/' + playerId + '/score').push(pointBlock)
+
+
+
   },
 
   service.checkIfScoreBlockExists = function(userId,pointBlock){
@@ -37,11 +74,13 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
 
       var result;
       _.forEach(j, function(value, index, collection){
-        //$log.log(value.type, pointBlock.type, value.week, pointBlock.week)
+        $log.log(value.type, pointBlock.type, value.week, pointBlock.week)
         if(value.type == pointBlock.type && value.week == pointBlock.week){
-           result = true
+          $log.log('RESULT IS TRUE')
+           result = 'true'
         } else {
-          result = false
+          $log.log('RESULT IS FALSE')
+          result = 'false'
         }
       })
       //$log.log('result', result)

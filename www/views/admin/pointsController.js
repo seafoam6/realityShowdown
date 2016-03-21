@@ -54,25 +54,34 @@ angular.module('App').controller('pointsController', function ($cordovaOauth, $f
   }
 
   vm.scoreParticipation = function(){
-
     new Promise(function(resolve, reject){
       resolve(Vote.getWeeksVote(vm.show, vm.activeWeek.weekNumber))
     }).then(function(results){
-      //$log.log('all votes for this week',results)
       return results
     }).then(function(results){
       _.forEach(results, function(value, index, collection){
-        //$log.log(index)
         Score.giveParticipationPoints(value, index, participationPoints)
       })
     }).catch(function(err){
       $log.error(err)
     })
-
-
   }
 
+    vm.scoreBullseye = function(){
+    new Promise(function(resolve, reject){
+      resolve(Vote.getWeeksVote(vm.show, vm.activeWeek.weekNumber))
+    }).then(function(results){
+      _.forEach(results, function(value, index, collection){
 
+        $log.log('be', bullseyePoints)
+        Score.BullseyePoints(value, index, bullseyePoints, vm.activeWeek.loser)
+
+
+      })
+    }).catch(function(err){
+      $log.error(err)
+    })
+  }
 
 
   

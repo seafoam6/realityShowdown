@@ -20,6 +20,22 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
     })
   }
 
+  service.calculatePlayerScores = function(){
+    new Promise(function(resolve,reject){
+      resolve(Users.getAllUsers())
+    }).then(function(allUsers){
+        _.forEach(allUsers, function(value, index, collection){
+        $log.log(value)
+        //see if pointsArray value exists
+
+        //add points array
+
+        //save to totalPoints
+      })
+    })
+
+  }
+
   service.giveParticipationPoints = function(vote, playerId, pointBlock){
 
     scoreThePoints(playerId,pointBlock)

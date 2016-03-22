@@ -73,17 +73,13 @@ angular.module('App').controller('pointsController', function ($cordovaOauth, $f
       resolve(Vote.getWeeksVote(vm.show, vm.activeWeek.weekNumber))
     }).then(function(results){
       _.forEach(results, function(value, index, collection){
-
-
         Score.giveBullseyePoints(value, index, echoPoints, vm.activeWeek.loser)
-
-
       })
     }).catch(function(err){
       $log.error(err)
     })
   }
-///REWRITE
+
   vm.scoreEcho = function(){
     new Promise(function(resolve, reject){
       resolve(Vote.getWeeksVote(vm.show, vm.activeWeek.weekNumber))
@@ -100,7 +96,9 @@ angular.module('App').controller('pointsController', function ($cordovaOauth, $f
     })
   }
 
-
+  vm.calculateScores = function(){
+    Score.calculatePlayerScores();
+  }
   
 
  })

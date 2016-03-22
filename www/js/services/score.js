@@ -46,7 +46,7 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
 
   service.giveEchoPoints = function(fbVote, playerId, pointBlock, fbWeeks){
 
-    $log.log('fbvote',fbVote)
+    //$log.log('fbvote',fbVote)
     var hashKey = Object.keys(fbVote)
 
     //vote for the week we're echoing
@@ -65,7 +65,20 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
 
       //make sure week loser isn't empty
       if (!_.isEmpty(week.loser)){
-        //$log.log(week.loser)
+        //remove THIS WEEK'S LOSER
+
+        // for each week.loser
+        _.forEach(week.loser, function(loser, index, collection){
+          var guessHolder = guesses[guesses.length - week.weekNumber]
+          var guessName = guessHolder.name
+
+          if (
+            weekNumber != week.weekNumber && 
+            loser.name == guessName
+            ){
+              $log.log('loser ' + loser.name, ' for week number ' + week.weekNumber, '. guess ' + guessName + ' currentWeek is ' + weekNumber)
+          }
+        })
       }
       
       // this is the check to see if points should be awarded
@@ -100,13 +113,25 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
 
       var result;
       _.forEach(j, function(value, index, collection){
-        $log.log(value.type, pointBlock.type, value.week, pointBlock.week)
-        if(value.type == pointBlock.type && value.week == pointBlock.week){
-          $log.log('RESULT IS TRUE')
-           result = true
+
+        //echo has more testing conditions
+        if (pointBlock.type != 'echo'){
+          if(value.type == pointBlock.type && value.week == pointBlock.week){
+             result = true
+          } else {
+            result = false
+          }
         } else {
-          $log.log('RESULT IS FALSE')
-          result = false
+          //pointBlock echo
+          if(
+            value.type == pointBlock.type && 
+            value.week == pointBlock.week 
+            //put last check here
+            ){
+             result = true
+          } else {
+            result = false
+          }
         }
       })
       return result

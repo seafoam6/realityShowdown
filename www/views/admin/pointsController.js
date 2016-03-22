@@ -17,7 +17,8 @@ angular.module('App').controller('pointsController', function ($cordovaOauth, $f
   var echoPoints = {
     type:'echo',
     points:20,
-    week:''
+    week:'',
+    echoWeek:''
   }
   
   //weeks
@@ -67,15 +68,31 @@ angular.module('App').controller('pointsController', function ($cordovaOauth, $f
     })
   }
 
-    vm.scoreBullseye = function(){
+  vm.scoreBullseye = function(){
     new Promise(function(resolve, reject){
       resolve(Vote.getWeeksVote(vm.show, vm.activeWeek.weekNumber))
     }).then(function(results){
       _.forEach(results, function(value, index, collection){
 
-        $log.log('be', bullseyePoints)
-        Score.BullseyePoints(value, index, bullseyePoints, vm.activeWeek.loser)
 
+        Score.giveBullseyePoints(value, index, echoPoints, vm.activeWeek.loser)
+
+
+      })
+    }).catch(function(err){
+      $log.error(err)
+    })
+  }
+///REWRITE
+  vm.scoreEcho = function(){
+    new Promise(function(resolve, reject){
+      resolve(Vote.getWeeksVote(vm.show, vm.activeWeek.weekNumber))
+    }).then(function(playerVote){
+      _.forEach(playerVote, function(value, index, collection){
+
+        //$log.log('be', vm.weeks)
+
+        Score.giveEchoPoints(value, index, echoPoints, vm.weeks)
 
       })
     }).catch(function(err){

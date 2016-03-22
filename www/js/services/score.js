@@ -16,15 +16,13 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
           }).then(function(result){
           if (_.isNil(result)){
             ref.child('players/' + userId + '/points').push(pointBlock)
-          } else {
-            $log.log("already scored!")
           }
         })
 
     })
-  },
+  }
 
-  service.BullseyePoints = function(fbVote, playerId, pointBlock, weekLoser){
+  service.giveBullseyePoints = function(fbVote, playerId, pointBlock, weekLoser){
 
 
     var hashKey = Object.keys(fbVote)
@@ -32,10 +30,6 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
     var guesses = fbVote[hashKey].guesses 
     var weekNumber = fbVote[hashKey].weekNumber
     var lastPlace = _.last(guesses)
-
-    //$log.log(lastPlace)
-    // get week loser ARRAY
-    // loop through array
 
     _.forEach(weekLoser, function(loser, index, collection){
       
@@ -57,14 +51,56 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
 
       } 
     })
+
+  }
+
+  service.giveEchoPoints = function(fbVote, playerId, pointBlock, fbWeeks){
+
+    $log.log('fbvote',fbVote)
+    var hashKey = Object.keys(fbVote)
+
+    //vote for the week we're echoing
+    var vote = fbVote[hashKey]
+
+    //guesses to iterate through
+    var guesses = fbVote[hashKey].guesses 
+    var weekNumber = fbVote[hashKey].weekNumber
+    var lastPlace = _.last(guesses)
+
+    //$log.log(lastPlace)
+    // get week loser ARRAY
+    // loop through array
+
+    _.forEach(fbWeeks, function(week, index, collection){
+
+      //make sure week loser isn't empty
+      if (!_.isEmpty(week.loser)){
+        //$log.log(week.loser)
+      }
+      
+      // this is the check to see if points should be awarded
+      if (false){
+        
+
+        // this pulls up user and awards points if they
+        // don't already have them
+        new Promise(function(resolve, reject){
+          resolve(Users.getUserByTwitter(playerId))
+          }).then(function(userId){
+            new Promise(function(resolve, reject){
+              resolve(service.checkIfScoreBlockExists(userId,pointBlock))
+              }).then(function(result){
+              if (_.isNil(result)){
+                ref.child('players/' + userId + '/points').push(pointBlock)
+              } 
+            })
+        })
+
+      } 
+    })
     // see if week loser matches lastPlace
 
-
-    
-
-
-
-  },
+  }
 
   service.checkIfScoreBlockExists = function(userId,pointBlock){
     //$log.log('called')
@@ -77,17 +113,14 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
         $log.log(value.type, pointBlock.type, value.week, pointBlock.week)
         if(value.type == pointBlock.type && value.week == pointBlock.week){
           $log.log('RESULT IS TRUE')
-           result = 'true'
+           result = true
         } else {
           $log.log('RESULT IS FALSE')
-          result = 'false'
+          result = false
         }
       })
-      //$log.log('result', result)
       return result
     })
-
-
   }
 
 

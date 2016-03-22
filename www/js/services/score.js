@@ -4,26 +4,28 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
   var service = this;
   var ref = new Firebase(FURL);
 
-  service.giveParticipationPoints = function(vote, playerId, pointBlock){
-
+  function scoreThePoints(playerId,pointBlock){
     new Promise(function(resolve, reject){
       resolve(Users.getUserByTwitter(playerId))
       }).then(function(userId){
-
-
         new Promise(function(resolve, reject){
+
+          //CHECK IF SCORE BLOCK EXISTS
           resolve(service.checkIfScoreBlockExists(userId,pointBlock))
           }).then(function(result){
           if (_.isNil(result)){
             ref.child('players/' + userId + '/points').push(pointBlock)
-          }
+          } 
         })
-
     })
   }
 
-  service.giveBullseyePoints = function(fbVote, playerId, pointBlock, weekLoser){
+  service.giveParticipationPoints = function(vote, playerId, pointBlock){
 
+    scoreThePoints(playerId,pointBlock)
+  }
+
+  service.giveBullseyePoints = function(fbVote, playerId, pointBlock, weekLoser){
 
     var hashKey = Object.keys(fbVote)
     var vote = fbVote[hashKey]
@@ -34,20 +36,8 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
     _.forEach(weekLoser, function(loser, index, collection){
       
       if (loser.name == lastPlace.name){
-        $log.log('trigger', playerId)
-        new Promise(function(resolve, reject){
-          resolve(Users.getUserByTwitter(playerId))
-          }).then(function(userId){
-            new Promise(function(resolve, reject){
-              resolve(service.checkIfScoreBlockExists(userId,pointBlock))
-              }).then(function(result){
-              if (_.isNil(result)){
-                ref.child('players/' + userId + '/points').push(pointBlock)
-              } else {
-                $log.log("already scored!")
-              }
-            })
-        })
+
+        scoreThePoints(playerId,pointBlock)
 
       } 
     })

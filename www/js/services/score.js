@@ -73,33 +73,16 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
           var guessName = guessHolder.name
 
           if (
-            weekNumber != week.weekNumber && 
+            weekNumber < week.weekNumber && 
             loser.name == guessName
             ){
               $log.log('loser ' + loser.name, ' for week number ' + week.weekNumber, '. guess ' + guessName + ' currentWeek is ' + weekNumber)
+            scoreThePoints(playerId,pointBlock)
           }
         })
       }
       
-      // this is the check to see if points should be awarded
-      if (false){
-        
-
-        // this pulls up user and awards points if they
-        // don't already have them
-        new Promise(function(resolve, reject){
-          resolve(Users.getUserByTwitter(playerId))
-          }).then(function(userId){
-            new Promise(function(resolve, reject){
-              resolve(service.checkIfScoreBlockExists(userId,pointBlock))
-              }).then(function(result){
-              if (_.isNil(result)){
-                ref.child('players/' + userId + '/points').push(pointBlock)
-              } 
-            })
-        })
-
-      } 
+  
     })
     // see if week loser matches lastPlace
 
@@ -125,8 +108,8 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
           //pointBlock echo
           if(
             value.type == pointBlock.type && 
-            value.week == pointBlock.week 
-            //put last check here
+            value.week == pointBlock.week &&
+            value.echoWeek == pointBlock.echoWeek
             ){
              result = true
           } else {

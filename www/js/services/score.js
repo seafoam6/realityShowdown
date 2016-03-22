@@ -14,7 +14,7 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
         new Promise(function(resolve, reject){
           resolve(service.checkIfScoreBlockExists(userId,pointBlock))
           }).then(function(result){
-          if (result == 'false'){
+          if (_.isNil(result)){
             ref.child('players/' + userId + '/points').push(pointBlock)
           } else {
             $log.log("already scored!")
@@ -47,7 +47,7 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
             new Promise(function(resolve, reject){
               resolve(service.checkIfScoreBlockExists(userId,pointBlock))
               }).then(function(result){
-              if (result == 'false'){
+              if (_.isNil(result)){
                 ref.child('players/' + userId + '/points').push(pointBlock)
               } else {
                 $log.log("already scored!")

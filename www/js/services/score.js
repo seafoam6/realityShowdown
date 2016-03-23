@@ -5,15 +5,20 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
   var ref = new Firebase(FURL);
 
   function scoreThePoints(playerId,pointBlock){
+    //$log.log(playerId, pointBlock)
     new Promise(function(resolve, reject){
       resolve(Users.getUserByTwitter(playerId))
       }).then(function(userId){
+        //$log.log('user id ', userId)
         new Promise(function(resolve, reject){
 
           //CHECK IF SCORE BLOCK EXISTS
           resolve(service.checkIfScoreBlockExists(userId,pointBlock))
           }).then(function(result){
-          if (_.isNil(result)){
+            $log.log('matches', result)
+
+            //if not true that it exists
+          if (!result){
             ref.child('players/' + userId + '/points').push(pointBlock)
           } 
         })
@@ -25,12 +30,24 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
       resolve(Users.getAllUsers())
     }).then(function(allUsers){
         _.forEach(allUsers, function(value, index, collection){
-        $log.log(value)
+        let tempTotalPoints;
         //see if pointsArray value exists
+        if (_.has(value, 'points')){
+          //tempTotalPoints = _.sumBy(value,'points')
+          var setOfPoints = value.points
+          var tempSum = 0;
+          _.forEach(setOfPoints, function(pointBlock, i2, c2){
+            tempSum += pointBlock.points
+            
+          })
+          $log.log(tempSum, index)
 
-        //add points array
+          //SAVE PLAYER SCORE!!!!
 
-        //save to totalPoints
+
+          ref.child('players/' + index).update({totalPoints:tempSum})
+        }
+        
       })
     })
 
@@ -50,7 +67,7 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
     var lastPlace = _.last(guesses)
 
     _.forEach(weekLoser, function(loser, index, collection){
-      
+      //$log.log(loser.name, lastPlace.name)
       if (loser.name == lastPlace.name){
 
         scoreThePoints(playerId,pointBlock)
@@ -87,7 +104,6 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
         _.forEach(week.loser, function(loser, index, collection){
           var guessHolder = guesses[guesses.length - week.weekNumber]
           var guessName = guessHolder.name
-
           if (
             weekNumber < week.weekNumber && 
             loser.name == guessName
@@ -109,30 +125,22 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
 
     return ref.child('players/' + userId + '/points').once('value').then(function(snapshot){
       var j = snapshot.val()
-
       var result;
-      _.forEach(j, function(value, index, collection){
-
-        //echo has more testing conditions
-        if (pointBlock.type != 'echo'){
-          if(value.type == pointBlock.type && value.week == pointBlock.week){
-             result = true
-          } else {
-            result = false
-          }
-        } else {
-          //pointBlock echo
-          if(
-            value.type == pointBlock.type && 
+      $log.log(pointBlock.type)
+      if (pointBlock.type == 'echo'){
+        $log.log('echo')
+        result = _.find(j, function(value, index, collection){
+          return value.type == pointBlock.type && 
             value.week == pointBlock.week &&
             value.echoWeek == pointBlock.echoWeek
-            ){
-             result = true
-          } else {
-            result = false
-          }
-        }
-      })
+        })
+
+      } else {
+        result = _.find(j, function(value, index, collection){
+          return value.type == pointBlock.type && value.week == pointBlock.week
+        })
+      }
+      
       return result
     })
   }

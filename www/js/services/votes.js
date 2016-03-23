@@ -38,7 +38,7 @@ angular.module('App').factory('Vote', function(FURL, $firebaseArray, $firebase, 
     },
 
     getWeeksVote : function(showDetails, weekNumber){
-      $log.log('retrieve vote details', showDetails, weekNumber)
+      //$log.log('retrieve vote details', showDetails, weekNumber)
       var voteSpot = new Firebase(FURL).child('votes/' +
       showDetails.name + 
       '/season' + 

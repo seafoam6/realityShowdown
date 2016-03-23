@@ -9,15 +9,15 @@
     </div>
 
 
-    <div ng-if="player.totalPoints < 10">
+    <div ng-if="player.totalPoints < 60">
     <h3>You're losing!</h3>
     <img class="reaction" src="img/reactions/lowScore.gif">
     </div>
-      <div ng-if="player.totalPoints == 10">
+      <div ng-if="player.totalPoints == 30">
     <h3>you're in the middle!</h3>
     <img class="reaction" src="img/reactions/middleScore.gif">
     </div>
-    <div ng-if="player.totalPoints > 20">
+    <div ng-if="player.totalPoints > 50">
     <h3>you're winning!</h3>
     <img class="reaction" src="img/reactions/topScore.gif">
     </div>

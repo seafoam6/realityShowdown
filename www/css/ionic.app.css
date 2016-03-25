@@ -9899,3 +9899,13 @@ a.button {
 ion-content {
   max-width: 600px;
   margin: 0 auto; }
+
+.points-breakdown .bronze {
+  background-color: #F6DEBA; }
+
+.points-breakdown .silver {
+  background-color: #BB2AA3;
+  color: #fff; }
+
+.points-breakdown .gold {
+  background-color: #3D1655; }

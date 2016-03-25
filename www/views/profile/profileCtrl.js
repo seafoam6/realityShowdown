@@ -9,8 +9,8 @@ angular.module('App').controller('profileCtrl', function ($scope, $state, $cordo
   new Promise(function(resolve, reject){
     resolve(Users.getUserObjByTwitter($state.params.id))
   }).then(function(result){
-    $scope.$apply(function(){
-      $log.log(result)
+    $log.log(result)
+    $scope.$apply(function(){ 
       vm.player = result;
     })
     

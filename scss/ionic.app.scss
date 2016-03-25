@@ -17,6 +17,9 @@ $dark:                            #444 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
+$bronze: #F6DEBA;
+$silver: #BB2AA3;
+$gold: #3D1655;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
@@ -32,4 +35,22 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 ion-content{
   max-width:600px;
   margin:0 auto;
+}
+.points-breakdown{
+  .bronze{
+    background:{
+      color:$bronze;
+    }
+  }
+  .silver{
+    background:{
+      color:$silver;
+    }
+    color:#fff;
+  }
+  .gold{
+    background:{
+      color:$gold;
+    }
+  }
 }

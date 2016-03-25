@@ -5,10 +5,10 @@
    <h3><a ng-href="http://twitter.com/{{vm.player.twitterName}}">@{{vm.player.twitterName}}</a></h3>
 
    <div class="points-breakdown">
-     <button class="button button-block" ng-class="{'bronze': pointBlock.type == 'participation',
+     <button ui-sref="prevVote({week:pointBlock.week, id:vm.player.id})" class="button button-block" ng-class="{'bronze': pointBlock.type == 'participation',
      'silver': pointBlock.type == 'bullseye',
      'gold': pointBlock.type == 'echo'}" ng-repeat="pointBlock in vm.player.points | orderObjectBy:'week'">
-       <span>Points: {{pointBlock.points}}</span>
+       <span class="position">Points: {{pointBlock.points}}</span>
        <span>Week: {{pointBlock.week}}</span>
        <span ng-if="pointBlock.type == 'participation'">
         Vote Cast

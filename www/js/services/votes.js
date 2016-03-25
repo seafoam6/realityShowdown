@@ -17,7 +17,6 @@ angular.module('App').factory('Vote', function(FURL, $firebaseArray, $firebase, 
       '/' +
       vote.playerId)
     voteSpot.set(vote)
-    //voteSpot.$add(vote)
     },
 
     retrieveVote : function(voteDetails){

@@ -51,6 +51,21 @@ $stateProvider
         "footer":footer     
       }
     })
+    .state('prevVote', {
+      url: '/vote/:week/:id',
+      views:{
+        "":{
+          templateUrl: 'views/prevVote/prevVote.html',
+          controller:'prevVoteCtrl',
+          controllerAs: 'vm'
+        },
+        params:{
+          week:'week',
+          id:'id'
+        },
+        "footer":footer     
+      }
+    })
     .state('scoreBoard', {
       url: '/scoreBoard',
       views:{
@@ -72,6 +87,7 @@ $stateProvider
         "footer":footer     
       }
     })
+
     .state('profile', {
       url: '/profile/:id',
       views:{

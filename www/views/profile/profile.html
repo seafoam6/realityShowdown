@@ -1,0 +1,15 @@
+<ion-view view-title="{{vm.player.name}}">
+  <ion-content class="padding-top">
+  <div class="img" ><img ng-src="{{vm.player.avatar}}"></div>
+   <h3><a ng-href="http://twitter.com/{{vm.player.twitterName}}">@{{vm.player.twitterName}}</a></h3>
+
+   <div class="points-breakdown">
+     <div ng-repeat="pointBlock in vm.player.points | orderObjectBy:'week'">
+       <span>Points: {{pointBlock.points}}</span>
+       <span>Week: {{pointBlock.week}}</span>
+       <span>Type: {{pointBlock.type}}</span>
+     </div>
+   </div>
+
+  </ion-content>
+</ion-view>

@@ -9895,3 +9895,7 @@ a.button {
 
 .week-admin .active {
   background: red; }
+
+ion-content {
+  max-width: 600px;
+  margin: 0 auto; }

@@ -10,6 +10,19 @@ angular.module('App').service('Users', function(FURL, $firebaseArray,$log, $loca
     })
   }
 
+  service.getUserObjByTwitter = function(twitterId){
+    return ref.once('value').then(function(snapshot) {
+      var j = snapshot.val();
+      var result;
+      _.forEach(j, function(value, index, collection){
+        if(value.id == twitterId){
+          result = value;
+        }
+      })
+      return result
+    });
+  }
+
   service.getUserByTwitter = function(twitterId){
     return ref.once('value').then(function(snapshot) {
       var j = snapshot.val();

@@ -29,3 +29,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     background:red;
   }
 }
+ion-content{
+  max-width:600px;
+  margin:0 auto;
+}

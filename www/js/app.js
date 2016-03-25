@@ -72,6 +72,20 @@ $stateProvider
         "footer":footer     
       }
     })
+    .state('profile', {
+      url: '/profile/:id',
+      views:{
+        "":{
+          templateUrl: 'views/profile/profile.html',
+          controller:'profileCtrl',
+          controllerAs: 'vm'
+        },
+        params:{
+          id:'id'
+        },
+        "footer":footer     
+      }
+    })
     .state('home', {
       url: '/home',
       views:{
@@ -100,4 +114,17 @@ $urlRouterProvider.otherwise("/login");
       StatusBar.styleDefault();
     }
   });
+})
+.filter('orderObjectBy', function() {
+  return function(items, field, reverse) {
+    var filtered = [];
+    angular.forEach(items, function(item) {
+      filtered.push(item);
+    });
+    filtered.sort(function (a, b) {
+      return (a[field] > b[field] ? 1 : -1);
+    });
+    if(reverse) filtered.reverse();
+    return filtered;
+  };
 });

@@ -2,7 +2,7 @@
   <ion-content class="padding">
   
   <div class="picked-queens">
-  <div class="queen" ng-repeat="player in players | orderBy: '-totalPoints'">
+  <div class="queen" ng-repeat="player in players | orderBy: '-totalPoints'" ui-sref="profile({id:player.id})">
   <div class="position">{{player.totalPoints}}</div>
   <div class="img"><img ng-src="{{player.avatar}}"></div>
   <div class="name">{{player.twitterName}}</div>

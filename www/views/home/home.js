@@ -9,25 +9,31 @@ var playersArray = $firebaseArray(new Firebase(FURL + 'players'))
   var ref = new Firebase(FURL);
   $scope.authObj = $firebaseAuth(ref);
 
-  $scope.logOut = function () {
-      delete $localStorage.user;
-      $location.path("/login");
+ 
+playersArray.$loaded().then(function(data){
+    //$log.log('players array data', data)
+    
+    //find match for username 
+    var match = _.find(data, function(o) { return o.id == $scope.user.id })
+
+    $scope.player = match;
+
+  })
+
+
+
+ $scope.fixImage = function(){
+  fbId = "-KC8EegSKh7h1_Iczkn7"
+  $log.log($localStorage.user)
+  var playerInfo = {
+    avatar:$localStorage.user.avatar,
+    name:$localStorage.user.name,
+    lastLogin: Date(),
+    twitterName:$localStorage.user.twitterName
   }
-
- 
- playersArray.$loaded().then(function(data){
-        //$log.log('players array data', data)
-        
-        //find match for username 
-        var match = _.find(data, function(o) { return o.id == $scope.user.id })
-
-        $scope.player = match;
-
-      })
-
-
-
- 
+  //$log.log(PlayerInfo)
+  Users.updatePlayerInfo(fbId,playerInfo)
+ }
 
   
 

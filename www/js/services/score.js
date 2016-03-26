@@ -61,11 +61,11 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
   service.giveBullseyePoints = function(fbVote, playerId, pointBlock, weekLoser){
 
     var hashKey = Object.keys(fbVote)
-    var vote = fbVote[hashKey]
-    var guesses = fbVote[hashKey].guesses 
-    var weekNumber = fbVote[hashKey].weekNumber
+    //var vote = fbVote[hashKey]
+    var guesses = fbVote.guesses 
+    var weekNumber = fbVote.weekNumber
     var lastPlace = _.last(guesses)
-
+    $log.log(fbVote)
     _.forEach(weekLoser, function(loser, index, collection){
       //$log.log(loser.name, lastPlace.name)
       if (loser.name == lastPlace.name){
@@ -83,16 +83,13 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
     var hashKey = Object.keys(fbVote)
 
     //vote for the week we're echoing
-    var vote = fbVote[hashKey]
+    //var vote = fbVote[hashKey]
 
     //guesses to iterate through
-    var guesses = fbVote[hashKey].guesses 
-    var weekNumber = fbVote[hashKey].weekNumber
+    var guesses = fbVote.guesses 
+    var weekNumber = fbVote.weekNumber
     var lastPlace = _.last(guesses)
 
-    //$log.log(lastPlace)
-    // get week loser ARRAY
-    // loop through array
 
     _.forEach(fbWeeks, function(week, index, collection){
 

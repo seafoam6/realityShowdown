@@ -6,7 +6,9 @@ angular.module('App').service('Player', function(FURL, $firebaseArray,$log, $loc
   
 
   
-
+  service.updatePlayerInfo = function(fbId, playerInfo){
+    
+  }
 
 
   service.test = function(){

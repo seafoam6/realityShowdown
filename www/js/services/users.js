@@ -3,6 +3,12 @@ angular.module('App').service('Users', function(FURL, $firebaseArray,$log, $loca
   
   var service = this;
   var ref = new Firebase(FURL+'players');
+
+
+  service.updatePlayerInfo = function(fbId, playerInfo){
+    ref.child(fbId).update(playerInfo)
+    $log.log('udated player info')
+  }
   
   service.getAllUsers = function(){
     return ref.once('value').then(function(snapshot) {

@@ -1,5 +1,5 @@
 'Use Strict';
-angular.module('App').controller('loginController', function ($scope, $state,$cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseObject, $firebaseArray, FURL, Player, Utils, $log, $firebaseAuth, $timeout, $interval) {
+angular.module('App').controller('loginController', function ($scope, $state,$cordovaOauth, $localStorage, $location, $http, $ionicPopup, $firebaseObject, $firebaseArray, FURL, Player, Utils, $log, $firebaseAuth, $timeout, $interval, Users) {
   var ref = new Firebase(FURL);
   var userkey = "";
   var auth = $firebaseAuth(ref);
@@ -35,29 +35,30 @@ function waitforAuth(){
       //$interval.cancel(stopInterval)
       console.log('Logged in as', authData.uid);
     
-    //$log.log(authData)
 
-    //get data for 
     player.provider = authData.provider
     player.avatar = authData.twitter.profileImageURL
     player.name = authData.twitter.displayName
     player.twitterName = authData.twitter.username
-    player.tempTime = Date()
     player.id = authData.uid
+    player.totalPoints = 0
 
-    // if player does not exist
+    //time stamp last login
+
+
       playersArray.$loaded().then(function(data){
-        //$log.log('players array data', data)
-        
-        //find match for username 
+
         var match = _.find(data, function(o) { return o.id == player.id })
         $log.log('match',match)
         if (!match){
+          player.firstLogin = Date()
           playersArray.$add(player)
           $localStorage.user = player
         } else {
           $log.log('player exists')
-          playersArray.$save(match);
+          //user synchronous service to save data back
+          player.lastLogin = Date()
+          Users.updatePlayerInfo(match.$id, player)
           $localStorage.user = player
         }
 

@@ -9909,3 +9909,6 @@ ion-content {
 
 .points-breakdown .gold {
   background-color: #3D1655; }
+
+#score-board .queen .position {
+  width: 50px; }

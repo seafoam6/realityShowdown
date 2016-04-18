@@ -1,7 +1,7 @@
-<ion-view view-title="Score Board" hide-back-button="true" class="score-board">
+<ion-view view-title="Score Board" hide-back-button="true" >
   <ion-content class="padding">
   
-  <div class="picked-queens">
+  <div id="score-board" class="picked-queens">
   <button class="button button-block queen" ng-repeat="player in players | orderBy: '-totalPoints'" ui-sref="profile({id:player.id})">
   <div class="position">{{player.totalPoints}}</div>
   <div class="img"><img ng-src="{{player.avatar}}"></div>

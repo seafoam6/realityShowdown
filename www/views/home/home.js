@@ -35,8 +35,12 @@ playersArray.$loaded().then(function(data){
   Users.updatePlayerInfo(fbId,playerInfo)
  }
 
-  
 
+
+  
+$scope.authTest = function(){
+  ref.child('test').update({"thing":"ki3"})
+}
   
 
 

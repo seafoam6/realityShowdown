@@ -41,7 +41,7 @@ function waitforAuth(){
     player.name = authData.twitter.displayName
     player.twitterName = authData.twitter.username
     player.id = authData.uid
-    player.totalPoints = 0
+    
 
     //time stamp last login
 
@@ -52,6 +52,7 @@ function waitforAuth(){
         $log.log('match',match)
         if (!match){
           player.firstLogin = Date()
+          player.totalPoints = 0
           playersArray.$add(player)
           $localStorage.user = player
         } else {

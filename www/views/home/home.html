@@ -5,22 +5,11 @@
 
     <div class="your-score">
       <img class="avatar" ng-src="{{user.avatar}}">
-      <div class="score">{{player.totalPoints || 0}} Points</div>
+      <div class="score">{{player.totalPoints || '-' }} Points</div>
     </div>
 
 
-    <div ng-if="player.totalPoints < 30">
-    <h3>You're losing!</h3>
-    <img class="reaction" src="img/reactions/lowScore.gif">
-    </div>
-      <div ng-if="player.totalPoints == 30">
-    <h3>you're in the middle!</h3>
-    <img class="reaction" src="img/reactions/middleScore.gif">
-    </div>
-    <div ng-if="player.totalPoints > 50">
-    <h3>you're winning!</h3>
-    <img class="reaction" src="img/reactions/topScore.gif">
-    </div>
+    
   
   </ion-content>
 

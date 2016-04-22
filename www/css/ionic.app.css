@@ -9825,7 +9825,7 @@ a.button {
     color: #fff;
     text-shadow: 1px 0 #000;
     height: 100%;
-    width: 44px;
+    width: 54px;
     text-align: center;
     margin: 0; }
   .queen .name {
@@ -9908,7 +9908,8 @@ ion-content {
   color: #fff; }
 
 .points-breakdown .gold {
-  background-color: #3D1655; }
+  background-color: #3D1655;
+  color: #fff; }
 
 #score-board .queen .position {
   width: 50px; }

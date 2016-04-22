@@ -23,9 +23,10 @@ angular.module('App').controller('loginController', function ($scope, $state,$co
        });
     }
     }); 
+      waitforAuth()
   };
 
-waitforAuth()
+//
 
 function waitforAuth(){
   auth.$onAuth(function(authData) {
@@ -33,7 +34,7 @@ function waitforAuth(){
       console.log('Not logged in yet');
     } else {
       //$interval.cancel(stopInterval)
-      console.log('Logged in as', authData.uid);
+      console.log('Logged in as', authData);
     
 
     player.provider = authData.provider
@@ -41,7 +42,11 @@ function waitforAuth(){
     player.name = authData.twitter.displayName
     player.twitterName = authData.twitter.username
     player.id = authData.uid
+<<<<<<< HEAD
     
+=======
+    //player.totalPoints = 0
+>>>>>>> 1a0aac7c62747f4d03659676fcd39ea1d561a695
 
     //time stamp last login
 
@@ -56,9 +61,10 @@ function waitforAuth(){
           playersArray.$add(player)
           $localStorage.user = player
         } else {
-          $log.log('player exists')
+          $log.log('player exists', player)
           //user synchronous service to save data back
           player.lastLogin = Date()
+
           Users.updatePlayerInfo(match.$id, player)
           $localStorage.user = player
         }

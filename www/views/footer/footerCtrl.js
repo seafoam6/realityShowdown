@@ -5,7 +5,7 @@ angular.module('App').controller('footerCtrl', function ($scope, $state, $cordov
   $scope.isAdmin = Player.isAdmin();
 
   $scope.logout = function(){
-    
+    auth.$unauth();
       delete $localStorage.user;
       $location.path("/login");
   }

@@ -42,11 +42,6 @@ function waitforAuth(){
     player.name = authData.twitter.displayName
     player.twitterName = authData.twitter.username
     player.id = authData.uid
-<<<<<<< HEAD
-    
-=======
-    //player.totalPoints = 0
->>>>>>> 1a0aac7c62747f4d03659676fcd39ea1d561a695
 
     //time stamp last login
 

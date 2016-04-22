@@ -95,17 +95,18 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
 
       //make sure week loser isn't empty
       if (!_.isEmpty(week.loser)){
-        //remove THIS WEEK'S LOSER
+        //debugger;
 
         // for each week.loser
         _.forEach(week.loser, function(loser, index, collection){
-          var guessHolder = guesses[guesses.length - week.weekNumber]
+          var guessHolder = guesses[guesses.length - weekNumber]
           var guessName = guessHolder.name
-         
+         //debugger;
           if (
             (weekNumber < week.weekNumber) && 
             (loser.name == guessName)
             ){
+            debugger;
               // set which week the previous week the score is for
               pointBlock.predicts = loser.name;
               pointBlock.echoWeek = week.weekNumber;

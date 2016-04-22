@@ -106,7 +106,7 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
             (weekNumber < week.weekNumber) && 
             (loser.name == guessName)
             ){
-            debugger;
+            //debugger;
               // set which week the previous week the score is for
               pointBlock.predicts = loser.name;
               pointBlock.echoWeek = week.weekNumber;

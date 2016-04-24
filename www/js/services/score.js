@@ -15,7 +15,7 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
           //CHECK IF SCORE BLOCK EXISTS
           resolve(service.checkIfScoreBlockExists(userId,pointBlock))
           }).then(function(result){
-            $log.log('matches', result)
+           // $log.log('matches', result)
 
             //if not true that it exists
           if (!result){
@@ -40,7 +40,7 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
             tempSum += pointBlock.points
             
           })
-          $log.log(tempSum, index)
+          //$log.log(tempSum, index)
 
           //SAVE PLAYER SCORE!!!!
 
@@ -65,7 +65,7 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
     var guesses = fbVote.guesses 
     var weekNumber = fbVote.weekNumber
     var lastPlace = _.last(guesses)
-    $log.log(fbVote)
+    //$log.log(fbVote)
     _.forEach(weekLoser, function(loser, index, collection){
       //$log.log(loser.name, lastPlace.name)
       if (loser.name == lastPlace.name){
@@ -79,46 +79,53 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
 
   service.giveEchoPoints = function(fbVote, playerId, pointBlock, fbWeeks){
 
-    //$log.log('fbvote',fbVote)
-    var hashKey = Object.keys(fbVote)
 
-    //vote for the week we're echoing
-    //var vote = fbVote[hashKey]
+   var totalPlaces = 12;
+   var weekBeingScored = fbVote.weekNumber;
 
-    //guesses to iterate through
-    var guesses = fbVote.guesses 
-    var weekNumber = fbVote.weekNumber
-    var lastPlace = _.last(guesses)
+   //filter out weeks without a loser
+   var allLosers = _.filter(fbWeeks, function(o){return o.loser; })
 
+   //filter out current and previous weeks
+   allLosers = _.filter(allLosers, function(o) {return o.weekNumber > weekBeingScored})
 
-    _.forEach(fbWeeks, function(week, index, collection){
+   //set place for all losers;
+   // place is (12 - weekNumber + 1)
+   _.forEach(allLosers, function(o){ o.place = totalPlaces - o.weekNumber + 1})
 
-      //make sure week loser isn't empty
-      if (!_.isEmpty(week.loser)){
-        //debugger;
+   // all losers is a slot title that may have multiple
 
-        // for each week.loser
-        _.forEach(week.loser, function(loser, index, collection){
-          var guessHolder = guesses[guesses.length - weekNumber]
-          var guessName = guessHolder.name
-         //debugger;
-          if (
-            (weekNumber < week.weekNumber) && 
-            (loser.name == guessName)
-            ){
-            //debugger;
-              // set which week the previous week the score is for
-              pointBlock.predicts = loser.name;
-              pointBlock.echoWeek = week.weekNumber;
-              $log.log('loser ' + loser.name, ' for week number ' + week.weekNumber, '. guess ' + guessName + ' currentWeek is ' + weekNumber)
-            scoreThePoints(playerId,pointBlock)
+   _.forEach(fbVote.guesses, function(guess, guessIndex, guessCollection){
+    // console.log('position ' + (index + 1), key.name )
+    // debugger;
+      _.forEach(allLosers, function(loser, loserIndex, loserCollection){
+
+        _.forEach(loser.loser, function(currentLoser, currentLoserIndex, currentLoserCollection){
+          if ((currentLoser.name == guess.name)
+            && (loser.place == guessIndex + 1)){
+            console.log(loser.place, currentLoser.name, loser.weekNumber, playerId)
+            //pointBlock.predicts = currentLoser.name;
+            //pointBlock.echoWeek = loser.weekNumber;
+            console.log(fbVote)
+           
+            var pointBlock = {
+              predicts: currentLoser.name,
+              type: "echo",
+              week: fbVote.weekNumber,
+              points:20,
+              echoWeek:loser.weekNumber
+            };
+            console.log(pointBlock)
+            scoreThePoints(playerId, pointBlock);
           }
+          
         })
-      }
-      
-  
-    })
-    // see if week loser matches lastPlace
+
+      })
+   })
+
+
+   
 
   }
 
@@ -128,9 +135,9 @@ angular.module('App').service('Score', function(FURL, $firebaseArray, $firebase,
     return ref.child('players/' + userId + '/points').once('value').then(function(snapshot){
       var j = snapshot.val()
       var result;
-      $log.log(pointBlock.type)
+      //$log.log(pointBlock.type)
       if (pointBlock.type == 'echo'){
-        $log.log('echo')
+        //$log.log('echo')
         result = _.find(j, function(value, index, collection){
           return value.type == pointBlock.type && 
             value.week == pointBlock.week &&
